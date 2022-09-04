@@ -11,7 +11,7 @@ export function signInApi (data) {
         if (!localStorage.getItem(data.email)) {
             reject(new Error('User with such email doesnt exist'))
         }
-        if (localStorage.getItem(data.email) !== data.password) {
+        if (localStorage.getItem(data.email) != data.password) {
             setTimeout(() => resolve({token: '123'}), 2000)
         }
     })

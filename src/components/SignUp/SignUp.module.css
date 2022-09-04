@@ -1,0 +1,12 @@
+.signup {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.title {
+    color: wheat;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import {signUpUser} from "../../reducers/authReducer";
 import {useAppDispatch} from "../../app/hooks";
+import s from './SignUp.module.css';
 
 const SignUp = () => {
 
@@ -14,8 +15,8 @@ const SignUp = () => {
     }
 
     return (
-        <div>
-            <h1>please signup</h1>
+        <div className={s.signup}>
+            <h1 className={s.title}>please signup</h1>
             <input
                 type='email'
                 value={email}

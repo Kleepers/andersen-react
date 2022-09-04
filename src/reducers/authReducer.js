@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {signUpApi} from "../components/SignUp/signUpApi";
-import {signInApi} from "../components/SignIn/SignInApi";
+import {signInApi} from "../components/SignIn/signInApi";
 
 const initialState = {
     token: localStorage.getItem('token') || '',
