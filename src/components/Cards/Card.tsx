@@ -1,5 +1,6 @@
-import s from "./Cards.module.css";
 import React from "react";
+
+import s from "./Cards.module.css";
 import {Location} from "./CardsInterfaces";
 
 
