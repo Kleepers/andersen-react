@@ -1,35 +1,36 @@
 import React, {useEffect, useState} from "react";
-import {CardInterface, LocationInterface} from "./CardsInterfaces";
+
+import {Character} from "./CardsInterfaces";
 import Card from "./Card"
+
 import s from "./Cards.module.css"
 
 
 const Cards = () => {
-    let display;
-    let [pageNumber, setPageNumber] = useState<number>(42);
-    let [fetchedData, updateFetchedData] = useState<any>([]);
-    let {info, results} = fetchedData;
+    let cardsField;
+    const [pageNumber, setPageNumber] = useState<number>(2);
+    const [fetchedData, updateFetchedData] = useState<any>([]);
+    const {results}: {results: Array<Character>} = fetchedData;
     let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
     useEffect(() => {
-        (async function () {
-            let data = await fetch(api).then(res => res.json())
-            updateFetchedData(data);
-        })();
+
+        fetch(api)
+            .then(response => response.json())
+            .then(data => updateFetchedData(data))
     }, [api]);
 
 
     if (results) {
-        display = results.map((x: CardInterface): JSX.Element => {
-            let id: number, name: string, image: string, location: LocationInterface, status: string;
-            ({id, name, image, location, status} = x);
-            return <Card id={id} name={name} image={image} location={location} status={status}/>;
+        cardsField = results.map((x): JSX.Element => {
+            const {id, name, image, location, status} = x;
+            return <Card key={id} name={name} image={image} location={location} status={status}/>;
         });
     } else {
-        display = "No characters found";
+        cardsField = "No characters found";
     }
 
-    return <div className={s.container}>{display}</div>
+    return <div className={s.container}>{cardsField}</div>
 
 }
 
