@@ -1,4 +1,4 @@
-export interface Character {
+interface Character {
     id: number;
     name: string;
     status: string;
@@ -15,4 +15,14 @@ export interface Character {
 export interface Location {
     name: string;
     url: string;
+}
+
+export interface FetchedData {
+    info: {
+        count: number | null;
+        next: string | null;
+        pages: number | null;
+        prev: string | null;
+    }
+    results: Array<Character> | null;
 }

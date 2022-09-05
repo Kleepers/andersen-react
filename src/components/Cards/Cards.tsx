@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import {Character} from "./CardsInterfaces";
+import {FetchedData} from "./CardsInterfaces";
 import Card from "./Card"
 
 import s from "./Cards.module.css"
@@ -8,13 +8,19 @@ import s from "./Cards.module.css"
 
 const Cards = () => {
     let cardsField;
-    const [pageNumber, setPageNumber] = useState<number>(2);
-    const [fetchedData, updateFetchedData] = useState<any>([]);
-    const {results}: {results: Array<Character>} = fetchedData;
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [fetchedData, updateFetchedData] = useState<FetchedData>({
+        info: {
+            count: null,
+            next: null,
+            pages: null,
+            prev: null
+        }, results: []
+    });
+    const {results}  = fetchedData;
     let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
     useEffect(() => {
-
         fetch(api)
             .then(response => response.json())
             .then(data => updateFetchedData(data))
