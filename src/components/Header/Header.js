@@ -1,11 +1,10 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import s from './Header.module.css';
-import {useAppSelector} from "../../app/hooks";
 
 const Header = () => {
 
-    const isAuth = useAppSelector(state => state.user.token)
+    const isAuth = false;
 
     return (
         <header className={s.header}>
