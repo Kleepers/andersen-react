@@ -1,10 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {useAppSelector} from "../../app/hooks";
+import {selectAuth} from "../../features/authSlice";
 import s from './Header.module.css';
 
 const Header = () => {
+    const {token} = useAppSelector(selectAuth)
 
-    const isAuth = false;
+    const isAuth = Boolean(token);
 
     return (
         <header className={s.header}>
@@ -13,6 +16,7 @@ const Header = () => {
                 {isAuth
                     ?
                     <>
+                        <Link to={'/dashboard'} className={s.link}>Dashboard</Link>
                         <Link to={'/favorites'} className={s.link}>Favorites</Link>
                         <Link to={'/history'} className={s.link}>History</Link>
                     </>

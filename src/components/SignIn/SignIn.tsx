@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
-import {useState} from 'react';
-import s from './SignIn.module.css';
-import {useLoginUserMutation} from "../../services/authApi";
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {useLoginUserMutation} from "../../services/authApi";
 import {useAppDispatch} from "../../app/hooks";
 import {setUser} from "../../features/authSlice";
+import s from './SignIn.module.css';
 
 const initialState = {
     email: '',
@@ -37,6 +36,12 @@ const SignIn = () => {
             navigate('/')
         }
     }, [isSuccess])
+
+    useEffect(() => {
+        if (isError) {
+            alert((error as any).data.message);
+        }
+    }, [isError])
 
     return (
         <div className={s.signin}>

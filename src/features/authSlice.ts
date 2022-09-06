@@ -6,9 +6,11 @@ export interface AuthState {
     token: string | null;
 }
 
+const user = JSON.parse(localStorage.getItem('user') || '{}');
+
 const initialState: AuthState = {
-    name: null,
-    token: null,
+    name: user.name || null,
+    token: user.token || null,
 }
 
 export const authSlice = createSlice({
@@ -22,12 +24,17 @@ export const authSlice = createSlice({
             }));
             state.name = action.payload.name;
             state.token = action.payload.token;
+        },
+        logout: (state) => {
+            localStorage.clear();
+            state.name = null;
+            state.token = null;
         }
     }
 })
 
 export const selectAuth = (state: RootState) => state.auth;
 
-export const {setUser} = authSlice.actions;
+export const {setUser, logout} = authSlice.actions;
 
 export default authSlice.reducer;
