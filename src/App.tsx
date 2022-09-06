@@ -1,11 +1,14 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
+import Cards from "./components/Cards/Cards";
 
-    </div>
-  );
+function App() {
+
+    return (
+        <div className="App">
+            <Cards/>
+        </div>
+    );
 }
 
 export default App;

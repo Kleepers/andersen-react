@@ -1,0 +1,33 @@
+.container {
+    width: 80vw;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.card img {
+    width: 150px;
+    height: 150px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid black;
+}
+
+.content {
+    display: grid;
+}
+
+.name {
+    padding-top: 10px;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.location {
+    padding-top: 10px;
+}
