@@ -4,13 +4,12 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {logout, selectAuth} from "../../features/authSlice";
 import s from './Dashboard.module.css';
 
-const Dashboard = () => {
+const Dashboard = (): JSX.Element => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const {name} = useAppSelector(selectAuth);
-
 
     const handleLogout = () => {
         dispatch(logout());

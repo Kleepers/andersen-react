@@ -7,7 +7,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import s from './App.module.css';
 
-function App() {
+function App(): JSX.Element {
 
   return (
     <div className={s.App}>

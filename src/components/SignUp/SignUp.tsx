@@ -1,9 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import { useRegisterUserMutation } from "../../services/authApi";
 import {useAppDispatch} from "../../app/hooks";
+import { useRegisterUserMutation } from "../../services/authApi";
 import {setUser} from "../../features/authSlice";
 import s from './SignUp.module.css';
+
+type FormValue = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
 
 
 const initialState = {
@@ -14,12 +22,12 @@ const initialState = {
     confirmPassword: ''
 }
 
-const SignUp = () => {
+const SignUp = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const [formValue, setFormValue] = useState(initialState);
+    const [formValue, setFormValue] = useState<FormValue>(initialState);
 
     const { firstName, lastName, email, password, confirmPassword } = formValue;
 

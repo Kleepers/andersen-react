@@ -5,15 +5,20 @@ import {useAppDispatch} from "../../app/hooks";
 import {setUser} from "../../features/authSlice";
 import s from './SignIn.module.css';
 
+type FormValue = {
+    email: string;
+    password: string;
+}
+
 const initialState = {
     email: '',
     password: '',
 }
 
-const SignIn = () => {
+const SignIn = (): JSX.Element => {
     const dispatch = useAppDispatch();
 
-    const [formValue, setFormValue] = useState(initialState);
+    const [formValue, setFormValue] = useState<FormValue>(initialState);
 
     const {email, password} = formValue;
 
