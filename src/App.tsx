@@ -5,6 +5,7 @@ import SignIn from "./components/SignIn/SignIn";
 import Header from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Cards from "./components/Cards/Cards";
 import s from './App.module.css';
 
 function App(): JSX.Element {
@@ -13,14 +14,14 @@ function App(): JSX.Element {
     <div className={s.App}>
         <Header />
         <Routes>
-            <Route path="/signup" element={<SignUp />} />
+            <Route path='/signup' element={<SignUp />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/dashboard' element={<PrivateRoute>
                 <Dashboard />
             </PrivateRoute>} />
+            <Route path='/' element={<Cards />} />
         </Routes>
     </div>
   );
-}
 
 export default App;
