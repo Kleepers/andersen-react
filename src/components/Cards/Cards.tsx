@@ -14,11 +14,11 @@ const Cards = (): JSX.Element => {
         info: {
             count: null,
             next: null,
-            pages: null,
+            pages: 0,
             prev: null
         }, results: []
     });
-    const {results}  = fetchedData;
+    const {info, results}  = fetchedData;
     let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const Cards = (): JSX.Element => {
 
     return <React.Fragment>
         <div className={s.container}>{cardsField}</div>
-        <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber}/>
+        <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} info={info}/>
     </React.Fragment>
 
 }

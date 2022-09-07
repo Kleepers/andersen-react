@@ -1,28 +1,36 @@
 import React from "react";
 
+import ReactPaginate from "react-paginate";
+import {Info} from "../Cards/CardsInterfaces";
+
 import s from "./Pagination.module.css"
 
 
 type Props = {
+    info: Info;
     pageNumber: number;
-    setPageNumber: (arg: (x: number) => number) => void;
+    setPageNumber: (arg: number) => void;
 }
 
-const Pagination = ({pageNumber, setPageNumber}: Props): JSX.Element => {
-    let next = () => {
-        if (pageNumber === 42) return;
-        setPageNumber(x => x + 1)
-    }
+const Pagination = ({info, pageNumber, setPageNumber}: Props): JSX.Element => {
 
-    let prev = () => {
-        if (pageNumber === 1) return;
-        setPageNumber(x => x - 1)
-    }
-
-    return (<div className={s.container}>
-        <button onClick={prev} className={s.btn}>Prev</button>
-        <button onClick={next} className={s.btn}>Next</button>
-    </div>)
+    return (
+        <ReactPaginate pageCount={info.pages}
+                       forcePage={pageNumber === 1 ? 0 : pageNumber - 1}
+                       containerClassName={s.container}
+                       previousLabel="Prev"
+                       nextClassName={s.btn}
+                       previousClassName={s.btn}
+                       pageClassName={s.page}
+                       pageLinkClassName={s.page_link}
+                       activeClassName={s.active}
+                       breakClassName={s.break}
+                       disabledClassName={s.disabled}
+                       pageRangeDisplayed={3}
+                       marginPagesDisplayed={3}
+                       onPageChange={(data) => setPageNumber(data.selected + 1)}
+        />
+    )
 }
 
 export default Pagination;

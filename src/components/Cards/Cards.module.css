@@ -2,14 +2,15 @@
     width: 80vw;
     margin: 20px auto;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 2fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 10px;
 }
 
 .card img {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
+    padding-right: 10px;
 }
 
 .card {
