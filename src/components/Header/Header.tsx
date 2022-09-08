@@ -16,7 +16,6 @@ const Header = (): JSX.Element => {
                 {isAuth
                     ?
                     <>
-                        {/* Лучше ли вынести в отдельный компонент? <GuestLinks/> <AuthLinks/> */}
                         <Link to={'/dashboard'} className={s.link}>Dashboard</Link>
                         <Link to={'/favorites'} className={s.link}>Favorites</Link>
                         <Link to={'/history'} className={s.link}>History</Link>

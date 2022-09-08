@@ -5,7 +5,6 @@ import {logout, selectAuth} from "../../features/authSlice";
 import s from './Dashboard.module.css';
 
 const Dashboard = (): JSX.Element => {
-
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -23,7 +22,7 @@ const Dashboard = (): JSX.Element => {
             <button
                 className={s.dashboard__button}
                 type='button'
-                onClick={() => handleLogout()}
+                onClick={handleLogout}
             >Logout</button>
         </section>
     );

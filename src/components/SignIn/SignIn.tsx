@@ -26,7 +26,8 @@ const SignIn = (): JSX.Element => {
 
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
         if (email && password) {
             await loginUser({email, password})
         } else {
@@ -49,7 +50,7 @@ const SignIn = (): JSX.Element => {
     }, [isError])
 
     return (
-        <div className={s.signin}>
+        <form className={s.signin}>
             <h1 className={s.title}>please signin</h1>
             <input
                 type='email'
@@ -61,8 +62,8 @@ const SignIn = (): JSX.Element => {
                 value={password}
                 onChange={(e) => setFormValue({...formValue, password: e.target.value})}
             />
-            <button onClick={() => handleLogin()}>Sign In</button>
-        </div>
+            <button onClick={handleLogin}>Sign In</button>
+        </form>
     );
 };
 

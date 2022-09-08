@@ -33,7 +33,8 @@ const SignUp = (): JSX.Element => {
 
     const [registerUser, { data, isSuccess, isError, error }] = useRegisterUserMutation();
 
-    const handleRegister = async () => {
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault();
         if (password !== confirmPassword) {
             alert('Passwords do not match');
             return;
@@ -49,7 +50,7 @@ const SignUp = (): JSX.Element => {
             alert('Registration successful');
             navigate('/')
         }
-    })
+    }, [isSuccess])
 
     useEffect(() => {
         if (isError) {
@@ -58,7 +59,7 @@ const SignUp = (): JSX.Element => {
     }, [isError])
 
     return (
-        <div className={s.signup}>
+        <form className={s.signup}>
             <h1 className={s.title}>please signup</h1>
             <input
                 type='text'
@@ -88,8 +89,8 @@ const SignUp = (): JSX.Element => {
                 placeholder='Confirm password'
                 onChange={(e) => setFormValue({...formValue, confirmPassword: e.target.value})}
             />
-            <button onClick={() => handleRegister()}>Sign Up</button>
-        </div>
+            <button onClick={handleRegister}>Sign Up</button>
+        </form>
     );
 };
 
