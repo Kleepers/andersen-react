@@ -1,4 +1,4 @@
-interface Character {
+export interface Character {
     id: number;
     name: string;
     status: string;
@@ -10,9 +10,15 @@ interface Character {
     episode: Array<string>;
     url: string;
     created: string;
+    origin: Origin;
 }
 
 export interface Location {
+    name: string;
+    url: string;
+}
+
+interface Origin {
     name: string;
     url: string;
 }

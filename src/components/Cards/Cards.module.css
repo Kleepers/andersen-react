@@ -5,6 +5,7 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 10px;
+    color: white;
 }
 
 .card img {
@@ -15,7 +16,9 @@
 .card {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    border: 1px solid black;
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
 }
 
 .content {

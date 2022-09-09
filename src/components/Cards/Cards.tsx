@@ -8,7 +8,7 @@ import s from "./Cards.module.css"
 
 const Cards = () => {
     let cardsField;
-    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [pageNumber] = useState<number>(1);
     const [fetchedData, updateFetchedData] = useState<FetchedData>({
         info: {
             count: null,
@@ -30,7 +30,7 @@ const Cards = () => {
     if (results) {
         cardsField = results.map((x): JSX.Element => {
             const {id, name, image, location, status} = x;
-            return <Card key={id} name={name} image={image} location={location} status={status}/>;
+            return <Card page="/" key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
     } else {
         cardsField = "No characters found";
