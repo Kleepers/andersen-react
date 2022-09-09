@@ -40,7 +40,16 @@ const SignUp = (): JSX.Element => {
             return;
         }
         if (firstName && lastName && email && password) {
-            await registerUser({ firstName, lastName, email, password });
+            await registerUser({ firstName, lastName, email, password }).unwrap()
+                .then(fulfilled => {
+                    dispatch(setUser({ name: fulfilled.result.name, token: fulfilled.token }));
+                    alert('Registration successful');
+                    navigate('/');
+                    console.log(fulfilled);
+                }).catch(rejected => {
+                    alert((rejected).data.message);
+                    console.error(rejected)
+                });
         }
     }
 

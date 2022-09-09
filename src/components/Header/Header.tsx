@@ -5,9 +5,7 @@ import {selectAuth} from "../../features/authSlice";
 import s from './Header.module.css';
 
 const Header = (): JSX.Element => {
-    const {token} = useAppSelector(selectAuth)
-
-    const isAuth = Boolean(token);
+    const {isAuth} = useAppSelector(selectAuth)
 
     return (
         <header className={s.header}>

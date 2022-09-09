@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useLoginUserMutation} from "../../services/authApi";
 import {useAppDispatch} from "../../app/hooks";
@@ -29,25 +29,20 @@ const SignIn = (): JSX.Element => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         if (email && password) {
-            await loginUser({email, password})
+            await loginUser({email, password}).unwrap()
+                .then(fulfilled => {
+                    alert('Login success')
+                    dispatch(setUser({ name: fulfilled.result.name, token: fulfilled.token }))
+                    navigate('/')
+            })
+                .catch(rejected => {
+                    alert((rejected).data.message);
+                    console.error(rejected)
+                })
         } else {
             alert('Please fill all fields')
         }
     }
-
-    useEffect(() => {
-        if (isSuccess) {
-            alert('Login success')
-            dispatch(setUser({ name: data.result.name, token: data.token }))
-            navigate('/')
-        }
-    }, [isSuccess])
-
-    useEffect(() => {
-        if (isError) {
-            alert((error as any).data.message);
-        }
-    }, [isError])
 
     return (
         <form className={s.signin}>

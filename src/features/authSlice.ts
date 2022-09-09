@@ -13,11 +13,13 @@ try {
 export interface AuthState {
     name: string | null;
     token: string | null;
+    isAuth: true | false;
 }
 
 const initialState: AuthState = {
     name: user.name || null,
     token: user.token || null,
+    isAuth: Boolean(user.token || false)
 }
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
@@ -37,10 +39,12 @@ export const authSlice = createSlice({
         setUser: (state, action: PayloadAction<{name: string, token: string}>) => {
             state.name = action.payload.name;
             state.token = action.payload.token;
+            state.isAuth = true;
         },
         logout: (state) => {
             state.name = null;
             state.token = null;
+            state.isAuth = false;
         },
     }
 })
