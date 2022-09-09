@@ -9,11 +9,17 @@
     margin-bottom: 10px;
 }
 
+img {
+    width: 400px;
+    height: 400px;
+}
+
 .alive {
     margin-top: 10px;
     background-color: #89d389;
     text-align: center;
     color: black;
+    width: 400px;
 }
 
 .dead {
@@ -21,6 +27,7 @@
     background-color: #bb4d4d;
     text-align: center;
     color: black;
+    width: 400px;
 }
 
 .unknown {
@@ -28,6 +35,7 @@
     background-color: #b0b0b0;
     text-align: center;
     color: black;
+    width: 400px;
 }
 
 .content {
