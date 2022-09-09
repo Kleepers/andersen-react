@@ -1,8 +1,6 @@
 import React from "react";
-
-import s from "./Cards.module.css";
 import {Location} from "./CardsInterfaces";
-
+import s from "./Cards.module.css";
 
 type Props = {
     image: string,

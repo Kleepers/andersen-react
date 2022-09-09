@@ -2,10 +2,8 @@ import React, {useEffect, useState} from "react";
 
 import {FetchedData, Filters} from "./CardsInterfaces";
 import Card from "./Card"
-
-import s from "./Cards.module.css"
 import SearchBar from "../SearchBar/SearchBar";
-
+import s from "./Cards.module.css"
 
 const Cards = () => {
     let cardsField;
