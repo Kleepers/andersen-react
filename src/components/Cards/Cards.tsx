@@ -9,7 +9,7 @@ import s from "./Cards.module.css"
 
 const Cards = (): JSX.Element => {
     let cardsField;
-    const [pageNumber] = useState<number>(1);
+    const [pageNumber, setPageNumber] = useState<number>(1);
     const [fetchedData, updateFetchedData] = useState<FetchedData>({
         info: {
             count: null,
