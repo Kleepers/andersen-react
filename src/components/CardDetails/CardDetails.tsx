@@ -32,7 +32,7 @@ const CardDetails = () => {
     });
 
     let {name, image, origin, location, gender, species, status, type} = fetchedData;
-    console.log(fetchedData)
+
     useEffect(() => {
         fetch(api)
             .then(response => response.json())
