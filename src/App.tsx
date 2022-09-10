@@ -22,7 +22,7 @@ function App(): JSX.Element {
                     <Dashboard/>
                 </PrivateRoute>}/>
                 <Route path='/' element={<Cards />}/>
-                <Route path='/:id' element={<CardDetails/>}/>
+                <Route path='/character/:id' element={<CardDetails/>}/>
             </Routes>
         </div>
     );

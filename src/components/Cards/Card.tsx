@@ -10,12 +10,11 @@ type Props = {
     image: string,
     name: string,
     location: Location,
-    status: string,
-    page: string
+    status: string
 }
 
-const Card = ({ id, image, name, location, status, page }: Props) => {
-    return <Link to={`${page}${id}`} className={s.card}>
+const Card = ({ id, image, name, location, status }: Props) => {
+    return <Link to={`/character/${id}`} className={s.card}>
         <img src={image} alt="character photo"/>
         <div className={s.content}>
             <div className={s.name}>{name}</div>

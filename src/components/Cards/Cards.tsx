@@ -30,7 +30,7 @@ const Cards = () => {
     if (results) {
         cardsField = results.map((x): JSX.Element => {
             const {id, name, image, location, status} = x;
-            return <Card page="/" key={id} id={id} name={name} image={image} location={location} status={status}/>;
+            return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
     } else {
         cardsField = "No characters found";
