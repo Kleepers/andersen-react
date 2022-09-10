@@ -23,12 +23,15 @@ interface Origin {
     url: string;
 }
 
+export interface Info {
+    count: number | null;
+    next: string | null;
+    pages: number;
+    prev: string | null;
+
+}
+
 export interface FetchedData {
-    info: {
-        count: number | null;
-        next: string | null;
-        pages: number | null;
-        prev: string | null;
-    }
+    info: Info;
     results: Array<Character> | null;
 }

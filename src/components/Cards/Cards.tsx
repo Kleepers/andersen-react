@@ -1,23 +1,24 @@
 import React, {useEffect, useState} from "react";
 
-import {FetchedData} from "./CardsInterfaces";
 import Card from "./Card"
+import {FetchedData} from "./CardsInterfaces";
+import Pagination from "../Pagination/Pagination";
 
 import s from "./Cards.module.css"
 
 
-const Cards = () => {
+const Cards = (): JSX.Element => {
     let cardsField;
     const [pageNumber] = useState<number>(1);
     const [fetchedData, updateFetchedData] = useState<FetchedData>({
         info: {
             count: null,
             next: null,
-            pages: null,
+            pages: 0,
             prev: null
         }, results: []
     });
-    const {results}  = fetchedData;
+    const {info, results}  = fetchedData;
     let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
     useEffect(() => {
@@ -36,7 +37,10 @@ const Cards = () => {
         cardsField = "No characters found";
     }
 
-    return <div className={s.container}>{cardsField}</div>
+    return <React.Fragment>
+        <div className={s.container}>{cardsField}</div>
+        <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} info={info}/>
+    </React.Fragment>
 
 }
 
