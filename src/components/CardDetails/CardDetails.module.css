@@ -3,6 +3,8 @@
     gap: 20px;
     margin: 30px auto;
     color: white;
+    background: rgb(32, 35, 41);
+    height: 100vh;
 }
 
 .name {
