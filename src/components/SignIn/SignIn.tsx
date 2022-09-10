@@ -32,7 +32,7 @@ const SignIn = (): JSX.Element => {
             await loginUser({email, password}).unwrap()
                 .then(fulfilled => {
                     alert('Login success')
-                    dispatch(setUser({ name: fulfilled.result.name, token: fulfilled.token }))
+                    dispatch(setUser({ name: fulfilled.result.name, token: fulfilled.token, email: fulfilled.result.email }));
                     navigate('/')
             })
                 .catch(rejected => {

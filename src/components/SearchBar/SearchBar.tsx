@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useSearchParams} from "react-router-dom";
 
-interface SearchBarProps {
-    filterHandler: (formValue: SearchBarState) => void;
+import s from './SearchBar.module.css';
+
+
+interface Props {
+    filterHandler: (formValue: FormState) => void;
 }
 
-interface SearchBarState {
+interface FormState {
     name: string;
     status: string;
     species: string;
@@ -13,11 +16,11 @@ interface SearchBarState {
     gender: string;
 }
 
-const SearchBar = ({filterHandler}: SearchBarProps) => {
+const SearchBar = ({filterHandler}: Props) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const [formValue, setFormValue] = useState<SearchBarState>({
+    const [formValue, setFormValue] = useState<FormState>({
         name: '',
         status: '',
         species: '',
@@ -37,13 +40,14 @@ const SearchBar = ({filterHandler}: SearchBarProps) => {
         });
     }, [])
 
-    const handleSearch = () => {
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
         setSearchParams({'name': name, 'status': status, 'species': species, 'type': type, 'gender': gender});
         filterHandler(formValue);
     }
 
     return (
-        <div>
+        <form className={s.searchBar}>
             <input value={name}
                    onChange={(e) => setFormValue({...formValue, name: e.target.value})}
                    name='name'
@@ -70,7 +74,7 @@ const SearchBar = ({filterHandler}: SearchBarProps) => {
                    type='text'
                    placeholder='Gender'/>
             <button onClick={handleSearch}>Search</button>
-        </div>
+        </form>
     );
 };
 

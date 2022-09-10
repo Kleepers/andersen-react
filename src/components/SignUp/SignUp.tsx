@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../app/hooks";
 import { useRegisterUserMutation } from "../../services/authApi";
@@ -42,7 +42,7 @@ const SignUp = (): JSX.Element => {
         if (firstName && lastName && email && password) {
             await registerUser({ firstName, lastName, email, password }).unwrap()
                 .then(fulfilled => {
-                    dispatch(setUser({ name: fulfilled.result.name, token: fulfilled.token }));
+                    dispatch(setUser({ name: fulfilled.result.name, token: fulfilled.token, email: fulfilled.result.email }));
                     alert('Registration successful');
                     navigate('/');
                     console.log(fulfilled);
@@ -52,20 +52,6 @@ const SignUp = (): JSX.Element => {
                 });
         }
     }
-
-    useEffect(() => {
-        if (isSuccess) {
-            dispatch(setUser({ name: data.result.name, token: data.token }));
-            alert('Registration successful');
-            navigate('/')
-        }
-    }, [isSuccess])
-
-    useEffect(() => {
-        if (isError) {
-            alert((error as any).data.message);
-        }
-    }, [isError])
 
     return (
         <form className={s.signup}>
