@@ -21,23 +21,17 @@ const SearchBar = ({filterHandler}: Props) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [formValue, setFormValue] = useState<FormState>({
-        name: '',
-        status: '',
-        species: '',
-        type: '',
-        gender: ''
+        name: searchParams.get('name') || '',
+        status: searchParams.get('status') || '',
+        species: searchParams.get('species') || '',
+        type: searchParams.get('type') || '',
+        gender: searchParams.get('gender') || ''
     });
 
     const { name, status, species, type, gender } = formValue;
 
     useEffect(() => {
-        setFormValue({
-            name: searchParams.get('name') || '',
-            status: searchParams.get('status') || '',
-            species: searchParams.get('species') || '',
-            type: searchParams.get('type') || '',
-            gender: searchParams.get('gender') || ''
-        });
+        filterHandler(formValue);
     }, [])
 
     const handleSearch = (e: React.FormEvent) => {
