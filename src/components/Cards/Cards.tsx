@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-
-import {FetchedData, Filters} from "./CardsInterfaces";
 import Card from "./Card"
+import {FetchedData, Filters} from "./CardsInterfaces";
 import SearchBar from "../SearchBar/SearchBar";
+import Pagination from "../Pagination/Pagination";
+
 import s from "./Cards.module.css"
 
-const Cards = () => {
+
+const Cards = (): JSX.Element => {
     let cardsField;
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [filters, setFilters] = useState<Filters>({
@@ -19,12 +21,12 @@ const Cards = () => {
         info: {
             count: null,
             next: null,
-            pages: null,
+            pages: 0,
             prev: null
         }, results: []
     });
-    const {results} = fetchedData;
-    let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
+    const {info, results}  = fetchedData;
+    let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;;
 
     useEffect(() => {
         fetch(api)
@@ -55,9 +57,9 @@ const Cards = () => {
         <>
             <SearchBar filterHandler={handleSetFilters}/>
             <div className={s.container}>{cardsField}</div>
+            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} info={info}/>
         </>
-
-    )
+)
 
 }
 

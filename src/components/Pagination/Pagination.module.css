@@ -1,0 +1,66 @@
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px auto;
+    list-style: none;
+}
+
+.btn {
+    width: 60px;
+    height: 40px;
+    background-color: #b6b6b6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 10px;
+    user-select: none
+}
+
+.btn a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.btn:hover {
+    filter: brightness(80%);
+}
+
+.page {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: 1px solid black;
+    text-align: center;
+    padding-top: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    user-select: none
+}
+
+.page:hover {
+    background-color: #e6e6e6;
+}
+
+.page_link {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.active {
+    background-color: #b6b6b6;
+}
+
+.break {
+    padding-top: 5px;
+    cursor: pointer;
+    user-select: none
+}
+
+.disabled {
+    filter: brightness(120%);
+}
