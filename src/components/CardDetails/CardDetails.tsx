@@ -7,7 +7,7 @@ import s from "./CardDetails.module.css"
 
 
 const CardDetails = () => {
-    let {id} = useParams<string>();
+    let {id} = useParams();
     let api = `https://rickandmortyapi.com/api/character/${id}`
 
     let [fetchedData, updateFetchedData] = useState<Character>({
@@ -44,17 +44,8 @@ const CardDetails = () => {
             <div className="">
                 <h1 className={s.name}>{name}</h1>
                 <img src={image} alt=""/>
-                {(() => {
-                    switch (status) {
-                        case "Alive":
-                            return <div className={s.alive}>{status}</div>
-                        case "Dead":
-                            return <div className={s.dead}>{status}</div>
-                        case "unknown":
-                            return <div className={s.unknown}>{status}</div>
-                    }
-                })()
-                }
+
+                <div className={`${s.status} ${s[status.toLowerCase()]}`}>{status}</div>
                 <div className={s.content}>
                     <div className="">
                         <span className={s.text}>Gender: {gender}</span>
@@ -69,7 +60,7 @@ const CardDetails = () => {
                         <span className={s.text}>Origin: {origin.name}</span>
                     </div>
                     <div className="">
-                        <span className={s.text}>Type: {type === '' ? "Humanoid" : type}</span>
+                        <span className={s.text}>Type: {type || "Humanoid"}</span>
                     </div>
                 </div>
             </div>

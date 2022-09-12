@@ -16,28 +16,23 @@ img {
     height: 400px;
 }
 
-.alive {
+.status {
     margin-top: 10px;
-    background-color: #89d389;
     text-align: center;
     color: black;
     width: 400px;
+}
+
+.alive {
+    background-color: #89d389;
 }
 
 .dead {
-    margin-top: 10px;
     background-color: #bb4d4d;
-    text-align: center;
-    color: black;
-    width: 400px;
 }
 
 .unknown {
-    margin-top: 10px;
     background-color: #b0b0b0;
-    text-align: center;
-    color: black;
-    width: 400px;
 }
 
 .content {
