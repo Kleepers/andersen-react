@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    gap: 20px;
+    margin: 30px auto;
+    color: white;
+    background: rgb(32, 35, 41);
+    height: 100vh;
+}
+
+.name {
+    margin-bottom: 10px;
+}
+
+img {
+    width: 400px;
+    height: 400px;
+}
+
+.status {
+    margin-top: 10px;
+    text-align: center;
+    color: black;
+    width: 400px;
+}
+
+.alive {
+    background-color: #89d389;
+}
+
+.dead {
+    background-color: #bb4d4d;
+}
+
+.unknown {
+    background-color: #b0b0b0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.text {
+    font-size: 16px;
+}

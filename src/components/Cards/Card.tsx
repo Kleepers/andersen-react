@@ -1,16 +1,21 @@
 import React from "react";
+import {Link} from "react-router-dom";
+
 import {Location} from "./CardsInterfaces";
+
 import s from "./Cards.module.css";
 
+
 type Props = {
+    id: number,
     image: string,
     name: string,
     location: Location,
     status: string
 }
 
-const Card = ({ image, name, location, status }: Props) => {
-    return <div className={s.card}>
+const Card = ({ id, image, name, location, status }: Props) => {
+    return <Link to={`/character/${id}`} className={s.card}>
         <img src={image} alt="character photo"/>
         <div className={s.content}>
             <div className={s.name}>{name}</div>
@@ -20,7 +25,7 @@ const Card = ({ image, name, location, status }: Props) => {
                 <div>{location.name}</div>
             </div>
         </div>
-    </div>
+    </Link>
 }
 
 export default Card;

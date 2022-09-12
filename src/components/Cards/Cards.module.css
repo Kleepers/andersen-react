@@ -5,6 +5,7 @@
     grid-template-columns: repeat(4, 2fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 10px;
+    color: white;
 }
 
 .card img {
