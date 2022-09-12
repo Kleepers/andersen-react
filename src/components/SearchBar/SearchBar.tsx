@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import s from './SearchBar.module.css';
 
@@ -17,6 +17,8 @@ interface FormState {
 }
 
 const SearchBar = ({filterHandler}: Props) => {
+
+    const navigate = useNavigate()
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -38,6 +40,7 @@ const SearchBar = ({filterHandler}: Props) => {
         e.preventDefault();
         setSearchParams({'name': name, 'status': status, 'species': species, 'type': type, 'gender': gender});
         filterHandler(formValue);
+        navigate('/search?name=' + name + '&status=' + status + '&species=' + species + '&type=' + type + '&gender=' + gender);
     }
 
     return (

@@ -1,22 +1,17 @@
 import React, {useEffect, useState} from "react";
 import Card from "./Card"
 import {FetchedData, Filters} from "./CardsInterfaces";
-import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "../Pagination/Pagination";
 
 import s from "./Cards.module.css"
 
+type Props = {
+    filters: Filters
+}
 
-const Cards = (): JSX.Element => {
+const Cards = ({filters}: Props): JSX.Element => {
     let cardsField;
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [filters, setFilters] = useState<Filters>({
-        name: "",
-        status: "",
-        species: "",
-        type: "",
-        gender: ""
-    })
     const [fetchedData, updateFetchedData] = useState<FetchedData>({
         info: {
             count: null,
@@ -25,14 +20,24 @@ const Cards = (): JSX.Element => {
             prev: null
         }, results: []
     });
+
     const {info, results}  = fetchedData;
-    let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;;
+
+    let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
 
     useEffect(() => {
         fetch(api)
             .then(response => response.json())
             .then(data => updateFetchedData(data))
-    }, [api]);
+    }, [pageNumber]);
+
+    useEffect(() => {
+        setPageNumber(1);
+        api = `https://rickandmortyapi.com/api/character/?page=1&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
+        fetch(api)
+            .then(response => response.json())
+            .then(data => updateFetchedData(data))
+    }, [filters])
 
     if (results) {
         cardsField = results.map((x): JSX.Element => {
@@ -43,24 +48,11 @@ const Cards = (): JSX.Element => {
         cardsField = "No characters found";
     }
 
-    function handleSetFilters (filters: Filters) {
-        setFilters({
-            name: filters.name,
-            status: filters.status,
-            species: filters.species,
-            type: filters.type,
-            gender: filters.gender
-        })
-    }
-
     return (
         <>
-            <SearchBar filterHandler={handleSetFilters}/>
             <div className={s.container}>{cardsField}</div>
             <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} info={info}/>
         </>
-)
-
+    )
 }
-
 export default Cards;

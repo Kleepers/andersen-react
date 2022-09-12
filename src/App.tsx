@@ -25,4 +25,7 @@ function App(): JSX.Element {
     );
 }
 
+// Home route path='/'
+// внутри SearchBar и Cards/Info в зависимости от рутов
+
 export default App;
