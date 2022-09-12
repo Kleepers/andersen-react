@@ -35,3 +35,11 @@ export interface FetchedData {
     info: Info;
     results: Array<Character> | null;
 }
+
+export interface Filters {
+    name: string;
+    status: string;
+    species: string;
+    type: string;
+    gender: string;
+}

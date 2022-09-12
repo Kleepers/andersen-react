@@ -14,12 +14,14 @@ export interface AuthState {
     name: string | null;
     token: string | null;
     isAuth: true | false;
+    email: string | null;
 }
 
 const initialState: AuthState = {
     name: user.name || null,
     token: user.token || null,
-    isAuth: Boolean(user.token || false)
+    isAuth: Boolean(user.token || false),
+    email: user.email || null,
 }
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
@@ -36,15 +38,17 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<{name: string, token: string}>) => {
+        setUser: (state, action: PayloadAction<{name: string, token: string, email: string}>) => {
             state.name = action.payload.name;
             state.token = action.payload.token;
             state.isAuth = true;
+            state.email = action.payload.email;
         },
         logout: (state) => {
             state.name = null;
             state.token = null;
             state.isAuth = false;
+            state.email = null;
         },
     }
 })

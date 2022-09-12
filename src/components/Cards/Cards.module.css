@@ -17,9 +17,10 @@
 .card {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    border: 1px solid white;
+    border: 1px solid black;
+    color: wheat;
+    border-radius: 5px;
     text-decoration: none;
-    color: white;
 }
 
 .content {
