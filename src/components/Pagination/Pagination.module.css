@@ -33,12 +33,13 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    border: 1px solid black;
+    border: 1px solid white;
     text-align: center;
     padding-top: 5px;
     margin-top: 5px;
     border-radius: 5px;
-    user-select: none
+    user-select: none;
+    color: white;
 }
 
 .page:hover {

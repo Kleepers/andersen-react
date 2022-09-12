@@ -7,17 +7,19 @@ import Pagination from "../Pagination/Pagination";
 import s from "./Cards.module.css"
 
 
+const initialState = {
+    info: {
+        count: null,
+        next: null,
+        pages: 0,
+        prev: null
+    }, results: []
+}
+
 const Cards = (): JSX.Element => {
     let cardsField;
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [fetchedData, updateFetchedData] = useState<FetchedData>({
-        info: {
-            count: null,
-            next: null,
-            pages: 0,
-            prev: null
-        }, results: []
-    });
+    const [fetchedData, updateFetchedData] = useState<FetchedData>(initialState);
     const {info, results}  = fetchedData;
     let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}`;
 
@@ -31,7 +33,7 @@ const Cards = (): JSX.Element => {
     if (results) {
         cardsField = results.map((x): JSX.Element => {
             const {id, name, image, location, status} = x;
-            return <Card key={id} name={name} image={image} location={location} status={status}/>;
+            return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
     } else {
         cardsField = "No characters found";
