@@ -45,12 +45,13 @@ const CardDetails = () => {
                 <h1 className={s.name}>{name}</h1>
                 <img src={image} alt=""/>
                 {(() => {
-                    if (status === "Alive") {
-                        return <div className={s.alive}>{status}</div>
-                    } else if (status === "Dead") {
-                        return <div className={s.dead}>{status}</div>
-                    } else {
-                        return <div className={s.unknown}>{status}</div>
+                    switch (status) {
+                        case "Alive":
+                            return <div className={s.alive}>{status}</div>
+                        case "Dead":
+                            return <div className={s.dead}>{status}</div>
+                        case "unknown":
+                            return <div className={s.unknown}>{status}</div>
                     }
                 })()
                 }

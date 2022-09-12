@@ -1,8 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-import s from "./Cards.module.css";
 import {Location} from "./CardsInterfaces";
+
+import s from "./Cards.module.css";
 
 
 type Props = {
