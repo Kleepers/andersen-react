@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import {authApi} from '../services/authApi';
 import authReducer, {authMiddleware} from '../features/authSlice';
 export const store = configureStore({

@@ -1,47 +1,58 @@
 import React, {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import Card from "./Card"
-import {FetchedData, Filters} from "./CardsInterfaces";
+import {Character, Filters} from "./CardsInterfaces";
 import Pagination from "../Pagination/Pagination";
-
+import {useGetPageMutation} from "../../services/characterApi";
+import {selectCharacters, setCharacters} from "../../features/characterSlice";
 import s from "./Cards.module.css"
+
 
 type Props = {
     filters: Filters
 }
 
-const initialState = {
-    info: {
-        count: null,
-        next: null,
-        pages: 0,
-        prev: null
-    }, results: []
-}
 
 const Cards = ({filters}: Props): JSX.Element => {
+
+    let dispatch = useAppDispatch();
+
+    const {characters} = useAppSelector(selectCharacters)
+
     let cardsField;
+    const [pages, setPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [fetchedData, updateFetchedData] = useState<FetchedData>(initialState);
-    const {info, results}  = fetchedData;
+    const [getPage] = useGetPageMutation();
 
-    let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
+    const handleGetCards = async (page = pageNumber) => {
+        await getPage({
+            page: page,
+            name: filters.name,
+            status: filters.status,
+            species: filters.species,
+            type: filters.type,
+            gender: filters.gender
+        }).unwrap()
+            .then(fulfilled => {
+                setPages(fulfilled.info.pages)
+                dispatch(setCharacters(fulfilled.results));
+            })
+            .catch(rejected => {
+                cardsField = rejected.data.message
+            })
+    }
 
     useEffect(() => {
-        fetch(api)
-            .then(response => response.json())
-            .then(data => updateFetchedData(data))
-    }, [pageNumber]);
+        handleGetCards();
+    }, [pageNumber])
 
     useEffect(() => {
-        setPageNumber(1);
-        api = `https://rickandmortyapi.com/api/character/?page=1&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
-        fetch(api)
-            .then(response => response.json())
-            .then(data => updateFetchedData(data))
+        console.log('filters');
+        handleGetCards(1);
     }, [filters])
 
-    if (results) {
-        cardsField = results.map((x): JSX.Element => {
+    if (characters) {
+        cardsField = characters.map((x: Character): JSX.Element => {
             const {id, name, image, location, status} = x;
             return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
@@ -56,4 +67,5 @@ const Cards = ({filters}: Props): JSX.Element => {
         </>
     )
 }
+
 export default Cards;

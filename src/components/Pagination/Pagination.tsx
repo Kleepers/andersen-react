@@ -1,21 +1,20 @@
 import React from "react";
 
 import ReactPaginate from "react-paginate";
-import {Info} from "../Cards/CardsInterfaces";
 
 import s from "./Pagination.module.css"
 
 
 type Props = {
-    info: Info;
+    pages: number;
     pageNumber: number;
     setPageNumber: (arg: number) => void;
 }
 
-const Pagination = ({info, pageNumber, setPageNumber}: Props): JSX.Element => {
+const Pagination = ({pages, pageNumber, setPageNumber}: Props): JSX.Element => {
 
     return (
-        <ReactPaginate pageCount={info.pages}
+        <ReactPaginate pageCount={pages}
                        forcePage={pageNumber === 1 ? 0 : pageNumber - 1}
                        containerClassName={s.container}
                        previousLabel="Prev"
