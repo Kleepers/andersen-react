@@ -63,7 +63,7 @@ const Cards = ({filters}: Props): JSX.Element => {
     return (
         <>
             <div className={s.container}>{cardsField}</div>
-            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} info={info}/>
+            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} pages={pages}/>
         </>
     )
 }
