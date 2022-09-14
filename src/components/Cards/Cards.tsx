@@ -47,7 +47,6 @@ const Cards = ({filters}: Props): JSX.Element => {
     }, [pageNumber])
 
     useEffect(() => {
-        console.log('filters');
         handleGetCards(1);
     }, [filters])
 
