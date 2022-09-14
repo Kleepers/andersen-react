@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {RootState} from "../../../src/app/store";
-import {Character} from "../../../src/components/Cards/CardsInterfaces";
+import {RootState} from "../app/store";
+import {Character} from "../components/Cards/CardsInterfaces";
 
 
 interface CharacterState {
