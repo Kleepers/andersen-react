@@ -1,68 +1,45 @@
-import React, {useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import React, {useState} from "react";
+import {useAppDispatch} from "../../app/hooks";
 import Card from "./Card"
 import {Character, Filters} from "./CardsInterfaces";
 import Pagination from "../Pagination/Pagination";
-import {useGetPageMutation} from "../../services/characterApi";
-import {selectCharacters, setCharacters} from "../../features/characterSlice";
+import {useGetCharacterQuery} from "../../services/characterApi";
+import {setCharacters} from "../../features/characterSlice";
 import s from "./Cards.module.css"
-
 
 type Props = {
     filters: Filters
 }
 
-
 const Cards = ({filters}: Props): JSX.Element => {
 
-    let dispatch = useAppDispatch();
-
-    const {characters} = useAppSelector(selectCharacters)
-
-    let cardsField;
-    const [pages, setPages] = useState<number>(0);
+    const [prevFilters, setPrevFilters] = useState<Filters>(filters);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [getPage] = useGetPageMutation();
-
-    const handleGetCards = async (page = pageNumber) => {
-        await getPage({
-            page: page,
-            name: filters.name,
-            status: filters.status,
-            species: filters.species,
-            type: filters.type,
-            gender: filters.gender
-        }).unwrap()
-            .then(fulfilled => {
-                setPages(fulfilled.info.pages)
-                dispatch(setCharacters(fulfilled.results));
-            })
-            .catch(rejected => {
-                cardsField = rejected.data.message
-            })
+    if (prevFilters !== filters) {
+        setPageNumber(1);
+        setPrevFilters(filters);
     }
+    //const currentPageNumber = filters === prevFilters ? pageNumber : 1;
 
-    useEffect(() => {
-        handleGetCards();
-    }, [pageNumber])
+    const {data, error} = useGetCharacterQuery({page: pageNumber, ...filters});
 
-    useEffect(() => {
-        handleGetCards(1);
-    }, [filters])
+    const pagesAmount = Number(data?.info.pages) || 0;
+    let dispatch = useAppDispatch();
+    let cardsField;
+    dispatch(setCharacters(data?.results || []));
 
-    if (characters) {
-        cardsField = characters.map((x: Character): JSX.Element => {
+    if (data) {
+        cardsField = data.results.map((x: Character): JSX.Element => {
             const {id, name, image, location, status} = x;
             return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
     } else {
-        cardsField = "No characters found";
+        cardsField = 'No characters'
     }
-
     return (
         <>
             <div className={s.container}>{cardsField}</div>
-            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} pages={pages}/>
+            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} pagesAmount={pagesAmount}/>
         </>
     )
 }

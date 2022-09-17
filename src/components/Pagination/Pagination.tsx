@@ -6,15 +6,15 @@ import s from "./Pagination.module.css"
 
 
 type Props = {
-    pages: number;
+    pagesAmount: number;
     pageNumber: number;
     setPageNumber: (arg: number) => void;
 }
 
-const Pagination = ({pages, pageNumber, setPageNumber}: Props): JSX.Element => {
+const Pagination = ({pagesAmount, pageNumber, setPageNumber}: Props): JSX.Element => {
 
     return (
-        <ReactPaginate pageCount={pages}
+        <ReactPaginate pageCount={pagesAmount}
                        forcePage={pageNumber === 1 ? 0 : pageNumber - 1}
                        containerClassName={s.container}
                        previousLabel="Prev"
