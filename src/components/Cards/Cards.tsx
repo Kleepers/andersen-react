@@ -12,6 +12,9 @@ type Props = {
 }
 
 const Cards = ({filters}: Props): JSX.Element => {
+    let dispatch = useAppDispatch();
+
+
 
     const [prevFilters, setPrevFilters] = useState<Filters>(filters);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -24,7 +27,6 @@ const Cards = ({filters}: Props): JSX.Element => {
     const {data, error} = useGetCharacterQuery({page: pageNumber, ...filters});
 
     const pagesAmount = Number(data?.info.pages) || 0;
-    let dispatch = useAppDispatch();
     let cardsField;
     dispatch(setCharacters(data?.results || []));
 
