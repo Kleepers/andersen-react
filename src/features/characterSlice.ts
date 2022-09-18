@@ -1,5 +1,5 @@
 import {createSlice, Middleware, PayloadAction} from "@reduxjs/toolkit";
-import {RootState, store} from "../app/store";
+import {RootState} from "../app/store";
 import {Character} from "../components/Cards/CardsInterfaces";
 
 let history;
