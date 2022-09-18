@@ -3,9 +3,16 @@ import {RootState, store} from "../app/store";
 import {Character} from "../components/Cards/CardsInterfaces";
 
 let history;
+let email;
 
 try {
-    history = JSON.parse(localStorage.getItem(`${store.getState().auth.email}`) || '');
+    email = JSON.parse(localStorage.getItem('user') || '').email;
+} catch {
+    email = '';
+}
+
+try {
+    history = JSON.parse(localStorage.getItem(`${email}`) || '');
 } catch {
     history = [];
 }
@@ -23,7 +30,7 @@ const initialState: CharacterState = {
 export const characterMiddleware: Middleware = (store) => (next) => (action) => {
     if (action.type === 'character/setHistory') {
         let newHistory = [...store.getState().character.history, action.payload];
-        localStorage.setItem(`${store.getState().auth.email}`, JSON.stringify({...newHistory}));
+        localStorage.setItem(`${store.getState().auth.email}`, JSON.stringify(newHistory));
     }
     next(action);
 }

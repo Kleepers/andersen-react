@@ -12,7 +12,6 @@ const History = () => {
         <div className={s.history}>
             {history.map((item: any, index: number) => {
                 const {name, status, species, type, gender} = item;
-                console.log(name, status, species, type, gender);
                 return <HistoryItem key={index} name={name} status={status} species={species} type={type} gender={gender}/>;
             })}
         </div>
