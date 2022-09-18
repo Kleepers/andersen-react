@@ -1,59 +1,49 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
+import {useAppDispatch} from "../../app/hooks";
 import Card from "./Card"
-import {FetchedData, Filters} from "./CardsInterfaces";
+import {Character, Filters} from "./CardsInterfaces";
 import Pagination from "../Pagination/Pagination";
-
+import {useGetCharacterQuery} from "../../services/characterApi";
+import {setCharacters} from "../../features/characterSlice";
 import s from "./Cards.module.css"
 
 type Props = {
     filters: Filters
 }
 
-const initialState = {
-    info: {
-        count: null,
-        next: null,
-        pages: 0,
-        prev: null
-    }, results: []
-}
-
 const Cards = ({filters}: Props): JSX.Element => {
-    let cardsField;
+    let dispatch = useAppDispatch();
+
+
+
+    const [prevFilters, setPrevFilters] = useState<Filters>(filters);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [fetchedData, updateFetchedData] = useState<FetchedData>(initialState);
-    const {info, results}  = fetchedData;
-
-    let api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
-
-    useEffect(() => {
-        fetch(api)
-            .then(response => response.json())
-            .then(data => updateFetchedData(data))
-    }, [pageNumber]);
-
-    useEffect(() => {
+    if (prevFilters !== filters) {
         setPageNumber(1);
-        api = `https://rickandmortyapi.com/api/character/?page=1&name=${filters.name}&status=${filters.status}&species=${filters.species}&type=${filters.type}&gender=${filters.gender}`;
-        fetch(api)
-            .then(response => response.json())
-            .then(data => updateFetchedData(data))
-    }, [filters])
+        setPrevFilters(filters);
+    }
+    //const currentPageNumber = filters === prevFilters ? pageNumber : 1;
 
-    if (results) {
-        cardsField = results.map((x): JSX.Element => {
+    const {data, error} = useGetCharacterQuery({page: pageNumber, ...filters});
+
+    const pagesAmount = Number(data?.info.pages) || 0;
+    let cardsField;
+    dispatch(setCharacters(data?.results || []));
+
+    if (data) {
+        cardsField = data.results.map((x: Character): JSX.Element => {
             const {id, name, image, location, status} = x;
             return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
     } else {
-        cardsField = "No characters found";
+        cardsField = 'No characters'
     }
-
     return (
         <>
             <div className={s.container}>{cardsField}</div>
-            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} info={info}/>
+            <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} pagesAmount={pagesAmount}/>
         </>
     )
 }
+
 export default Cards;
