@@ -1,0 +1,25 @@
+.historyItem {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 1px solid red;
+    cursor: pointer;
+    color: wheat;
+    margin-top: 20px;
+}
+
+.historyItem__title {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.historyItem__parameterWrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: 0.5rem;
+}
+
+.historyItem__parameter {
+    font-size: 15px;
+    margin-left: 5px;
+}
