@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {authApi} from '../services/authApi';
 import authReducer, {authMiddleware} from '../features/authSlice';
-import characterReducer from '../features/characterSlice'
+import characterReducer, {characterMiddleware} from '../features/characterSlice'
 import {characterApi} from "../services/characterApi";
 
 export const store = configureStore({
@@ -15,6 +15,7 @@ export const store = configureStore({
         .concat(authApi.middleware)
         .concat(authMiddleware)
         .concat(characterApi.middleware)
+        .concat(characterMiddleware)
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from "react-router-dom";
+import {setHistory} from "../../features/characterSlice";
 
 import s from './SearchBar.module.css';
+import {useAppDispatch} from "../../app/hooks";
+
 
 
 interface Props {
@@ -19,6 +22,7 @@ interface FormState {
 const SearchBar = ({filterHandler}: Props) => {
 
     const navigate = useNavigate()
+    const dispatch = useAppDispatch();
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -41,6 +45,7 @@ const SearchBar = ({filterHandler}: Props) => {
         setSearchParams({'name': name, 'status': status, 'species': species, 'type': type, 'gender': gender});
         filterHandler(formValue);
         navigate('/search?name=' + name + '&status=' + status + '&species=' + species + '&type=' + type + '&gender=' + gender);
+        dispatch(setHistory({name, status, species, type, gender}));
     }
 
     return (

@@ -7,7 +7,9 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CardDetails from "./components/CardDetails/CardDetails";
 import Home from "./components/Home/Home";
+import History from "./components/History/History";
 import s from './App.module.css';
+
 
 
 function App(): JSX.Element {
@@ -20,6 +22,9 @@ function App(): JSX.Element {
                 <Route path='/signin' element={<SignIn/>}/>
                 <Route path='/dashboard' element={<PrivateRoute>
                     <Dashboard/>
+                </PrivateRoute>}/>
+                <Route path='/history' element={<PrivateRoute>
+                    <History/>
                 </PrivateRoute>}/>
                 <Route path='*' element={<Home />}/>
                 <Route path='/character/:id' element={<CardDetails/>}/>
