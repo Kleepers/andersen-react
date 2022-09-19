@@ -29,5 +29,5 @@ export const characterApi = createApi({
 
 export const {
     useGetCharacterQuery,
-    useGetCharacterBySelectorMutation
+    useGetCharacterByIdQuery
 } = characterApi;

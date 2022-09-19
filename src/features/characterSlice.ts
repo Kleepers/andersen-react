@@ -43,11 +43,15 @@ export const characterSlice = createSlice({
     reducers: {
         setHistory: (state, action: any) => {
             state.history = [...state.history, action.payload]
+        },
+        setFavorites: (state, action: any) => {
+            state.favorites = [...state.favorites, action.payload]
         }
     }
 })
 
 export const selectHistory = (state: RootState) => state.character.history;
+export const selectFavorites = (state: RootState) => state.character.favorites;
 
 export const {setHistory, setFavorites} = characterSlice.actions;
 

@@ -6,9 +6,12 @@ import {Character} from "../Cards/CardsInterfaces";
 import s from "./CardDetails.module.css"
 
 
+
+
 const CardDetails = () => {
     let {id} = useParams();
     let api = `https://rickandmortyapi.com/api/character/${id}`
+    const dispatch = useAppDispatch();
 
     let [fetchedData, updateFetchedData] = useState<Character>({
         id: 0,
