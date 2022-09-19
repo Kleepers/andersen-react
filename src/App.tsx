@@ -8,7 +8,9 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CardDetails from "./components/CardDetails/CardDetails";
 import Home from "./components/Home/Home";
 import History from "./components/History/History";
+import Favorites from "./components/Favorites/Favorites";
 import s from './App.module.css';
+
 
 
 
@@ -25,6 +27,9 @@ function App(): JSX.Element {
                 </PrivateRoute>}/>
                 <Route path='/history' element={<PrivateRoute>
                     <History/>
+                </PrivateRoute>}/>
+                <Route path='/favorites' element={<PrivateRoute>
+                    <Favorites/>
                 </PrivateRoute>}/>
                 <Route path='*' element={<Home />}/>
                 <Route path='/character/:id' element={<CardDetails/>}/>

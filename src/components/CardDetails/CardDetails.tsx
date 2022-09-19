@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom"
-
+import {useAppDispatch} from "../../app/hooks";
+import {setFavorites} from "../../features/characterSlice";
 import {Character} from "../Cards/CardsInterfaces";
-
 import s from "./CardDetails.module.css"
 
 
@@ -39,6 +39,10 @@ const CardDetails = () => {
             .then(data => updateFetchedData(data))
     }, [api]);
 
+    function handleFavorites () {
+        dispatch(setFavorites(Number(id)))
+    }
+
     return (
         <div className={s.container}>
             <div className="">
@@ -63,6 +67,7 @@ const CardDetails = () => {
                         <span className={s.text}>Type: {type || "Humanoid"}</span>
                     </div>
                 </div>
+                <button onClick={handleFavorites} className={s.button}>Like</button>
             </div>
         </div>
     );
