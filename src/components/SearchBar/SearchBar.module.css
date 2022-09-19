@@ -1,6 +1,34 @@
 .searchBar {
     display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    flex-direction: row;
+    align-self: flex-start;
+}
+
+.searchBar__button {
+
+}
+
+.searchBar__input {
+    margin-right: 30px;
+}
+
+.searchBar__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 100%;
+    align-items: center;
+}
+
+.suggestions__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    width: 100%;
+    background-color: darkgray;
+}
+
+.suggestions__wrapper:empty {
+    border: none;
 }

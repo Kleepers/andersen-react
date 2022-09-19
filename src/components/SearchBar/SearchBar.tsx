@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {setHistory} from "../../features/characterSlice";
-
-import s from './SearchBar.module.css';
 import {useAppDispatch} from "../../app/hooks";
-
-
+import useDebounce from "../../hooks/useDebounce";
+import Suggestion from "../Suggestion/Suggestion";
+import s from './SearchBar.module.css';
 
 interface Props {
     filterHandler: (formValue: FormState) => void;
@@ -33,12 +32,26 @@ const SearchBar = ({filterHandler}: Props) => {
         type: searchParams.get('type') || '',
         gender: searchParams.get('gender') || ''
     });
-
+    const [suggestions, setSuggestions] = useState<any>([]);
+    const debouncedValue = useDebounce<FormState>(formValue, 1000)
     const { name, status, species, type, gender } = formValue;
 
     useEffect(() => {
         filterHandler(formValue);
     }, [])
+
+    useEffect(() => {
+        if(debouncedValue.name !== '' || debouncedValue.status !== '' || debouncedValue.species !== '' || debouncedValue.type !== '' || debouncedValue.gender !== '') {
+            fetch(`https://rickandmortyapi.com/api/character/?name=${debouncedValue.name}&status=${debouncedValue.status}&species=${debouncedValue.species}&type=${debouncedValue.type}&gender=${debouncedValue.gender}`)
+                .then(res => res.json())
+                .then(data => data.results.slice(0, 5))
+                .then(results => {
+                    setSuggestions(results)
+                })
+        } else {
+            setSuggestions([]);
+        }
+    }, [debouncedValue])
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,34 +62,53 @@ const SearchBar = ({filterHandler}: Props) => {
     }
 
     return (
+        <div className={s.searchBar__wrapper}>
         <form className={s.searchBar}>
             <input value={name}
                    onChange={(e) => setFormValue({...formValue, name: e.target.value})}
                    name='name'
                    type='text'
-                   placeholder='Name'/>
+                   placeholder='Name'
+                   className={s.searchBar__input}
+            />
             <input value={status}
                    onChange={(e) => setFormValue({...formValue, status: e.target.value})}
                    name='status'
                    type='text'
-                   placeholder='Status'/>
+                   placeholder='Status'
+                   className={s.searchBar__input}
+            />
             <input value={species}
                    onChange={(e) => setFormValue({...formValue, species: e.target.value})}
                    name='species'
                    type='text'
-                   placeholder='Species'/>
+                   placeholder='Species'
+                   className={s.searchBar__input}
+            />
             <input value={type}
                    onChange={(e) => setFormValue({...formValue, type: e.target.value})}
                    name='type'
                    type='text'
-                   placeholder='Type'/>
+                   placeholder='Type'
+                   className={s.searchBar__input}
+            />
             <input value={gender}
                    onChange={(e) => setFormValue({...formValue, gender: e.target.value})}
                    name='gender'
                    type='text'
-                   placeholder='Gender'/>
-            <button onClick={handleSearch}>Search</button>
+                   placeholder='Gender'
+                   className={s.searchBar__input}
+            />
+            <button className={s.searchBar__button} onClick={handleSearch}>Search</button>
         </form>
+            <div className={s.suggestions__wrapper}>
+                {suggestions.map((item: any) => {
+                    console.log(item);
+                    const {name, id, image, gender, status} = item;
+                    return <Suggestion id={id} name={name} image={image} gender={gender} status={status}/>;
+                })}
+            </div>
+        </div>
     );
 };
 
