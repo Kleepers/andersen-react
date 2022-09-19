@@ -10,3 +10,8 @@
 .title {
     color: wheat;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+}

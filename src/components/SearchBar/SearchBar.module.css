@@ -32,3 +32,22 @@
 .suggestions__wrapper:empty {
     border: none;
 }
+
+.searchBar input {
+    border-radius: 5px;
+    color: rgb(32, 35, 41);
+    background: wheat;
+    border: 1px solid rgb(32, 35, 41);
+    margin-right: 5px;
+    width: 200px;
+    height: 30px;
+}
+
+.searchBar button {
+    border-radius: 5px;
+    background: #bb4d4d;
+    color: rgb(32, 35, 41);
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
