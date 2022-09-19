@@ -2,10 +2,18 @@ import React from 'react';
 import s from './Suggestion.module.css';
 import {Link} from "react-router-dom";
 
-const Suggestion = ({id, name, gender, status, image}: any) => {
+type Props = {
+    id: string;
+    name: string;
+    gender: string;
+    status: string;
+    image: string;
+}
+
+const Suggestion = ({id, name, gender, status, image}: Props) => {
     return (
         <Link className={s.suggestion} to={`/character/${id}`}>
-            <img className={s.suggestion__image} src={image}></img>
+            <img alt='character-image' className={s.suggestion__image} src={image}></img>
             <span className={s.suggestion__name}>{name}</span>
             <span className={s.suggestion__gender}>{gender}</span>
             <span className={s.suggestion__status}>{status}</span>

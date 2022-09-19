@@ -18,6 +18,14 @@ interface FormState {
     gender: string;
 }
 
+interface Suggestion {
+    id: string;
+    name: string;
+    image: string;
+    gender: string;
+    status: string;
+}
+
 const SearchBar = ({filterHandler}: Props) => {
 
     const navigate = useNavigate()
@@ -32,7 +40,7 @@ const SearchBar = ({filterHandler}: Props) => {
         type: searchParams.get('type') || '',
         gender: searchParams.get('gender') || ''
     });
-    const [suggestions, setSuggestions] = useState<any>([]);
+    const [suggestions, setSuggestions] = useState([]);
     const debouncedValue = useDebounce<FormState>(formValue, 1000)
     const { name, status, species, type, gender } = formValue;
 
@@ -102,7 +110,7 @@ const SearchBar = ({filterHandler}: Props) => {
             <button className={s.searchBar__button} onClick={handleSearch}>Search</button>
         </form>
             <div className={s.suggestions__wrapper}>
-                {suggestions.map((item: any) => {
+                {suggestions.map((item: Suggestion) => {
                     console.log(item);
                     const {name, id, image, gender, status} = item;
                     return <Suggestion id={id} name={name} image={image} gender={gender} status={status}/>;
