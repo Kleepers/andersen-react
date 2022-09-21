@@ -29,7 +29,7 @@ export const authMiddleware: Middleware = (store) => (next) => (action) => {
         localStorage.setItem('user', JSON.stringify(action.payload));
     }
     if (action.type === 'auth/logout') {
-        localStorage.clear();
+        localStorage.removeItem('user');
     }
     next(action);
 }

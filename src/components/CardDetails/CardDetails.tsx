@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom"
-import {useAppDispatch} from "../../app/hooks";
-import {setFavorites} from "../../features/characterSlice";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {deleteFavorite, selectFavorites, setFavorites} from "../../features/characterSlice";
 import {Character} from "../Cards/CardsInterfaces";
 import s from "./CardDetails.module.css"
 
@@ -12,6 +12,8 @@ const CardDetails = () => {
     let {id} = useParams();
     let api = `https://rickandmortyapi.com/api/character/${id}`
     const dispatch = useAppDispatch();
+    const favorites: Array<number> = useAppSelector(selectFavorites);
+
 
     let [fetchedData, updateFetchedData] = useState<Character>({
         id: 0,
@@ -35,6 +37,11 @@ const CardDetails = () => {
     });
 
     let {name, image, origin, location, gender, species, status, type} = fetchedData;
+    let isFavorite: boolean;
+
+    if (favorites.length > 0) {
+        isFavorite = favorites.includes(Number(id));
+    }
 
     useEffect(() => {
         fetch(api)
@@ -43,7 +50,11 @@ const CardDetails = () => {
     }, [api]);
 
     function handleFavorites () {
-        dispatch(setFavorites(Number(id)))
+        if (isFavorite) {
+            dispatch(deleteFavorite(Number(id)))
+        } else {
+            dispatch(setFavorites(Number(id)))
+        }
     }
 
     return (

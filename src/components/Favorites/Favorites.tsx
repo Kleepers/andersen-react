@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useAppSelector} from "../../app/hooks";
 import {selectFavorites} from "../../features/characterSlice";
 import {useGetCharacterByIdQuery} from "../../services/characterApi";
@@ -9,21 +9,24 @@ import s from "../Cards/Cards.module.css";
 const Favorites = () => {
     const favorites = useAppSelector(selectFavorites);
 
-    const {data, error} = useGetCharacterByIdQuery(favorites);
+    const shouldFetch = favorites.length > 0;
 
-    console.log(data);
+    const {data, error} = useGetCharacterByIdQuery(favorites, {
+        skip: !shouldFetch
+    });
 
     let cardsField;
 
-    if (typeof data === 'object') {
-        cardsField = <Card key={data.id} id={data.id} name={data.name} image={data.image} location={data.location} status={data.status}/>;
-    } else if (data === undefined) {
+    if (data === undefined) {
         cardsField = 'No characters'
-    } else {
+    } else if (data.length) {
         cardsField = data.map((x: Character): JSX.Element => {
+            console.log(x);
             const {id, name, image, location, status} = x;
             return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
         });
+    } else {
+        cardsField = <Card key={data.id} id={data.id} name={data.name} image={data.image} location={data.location} status={data.status}/>;
     }
 
     return (
