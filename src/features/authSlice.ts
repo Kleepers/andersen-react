@@ -1,15 +1,6 @@
 import {createSlice, Middleware, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../app/store';
 
-let user;
-
-try {
-    user = JSON.parse(localStorage.getItem('user') || '');
-} catch {
-    user = {};
-}
-
-
 export interface AuthState {
     name: string | null;
     token: string | null;
@@ -18,10 +9,10 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-    name: user.name || null,
-    token: user.token || null,
-    isAuth: Boolean(user.token || false),
-    email: user.email || null,
+    name: null,
+    token: null,
+    isAuth: false,
+    email: null
 }
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {

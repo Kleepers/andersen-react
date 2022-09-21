@@ -3,6 +3,7 @@ import {authApi} from '../services/authApi';
 import authReducer, {authMiddleware} from '../features/authSlice';
 import characterReducer, {characterMiddleware} from '../features/characterSlice'
 import {characterApi} from "../services/characterApi";
+import {initMiddleware} from "../middleware/initMiddleware";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         .concat(authMiddleware)
         .concat(characterApi.middleware)
         .concat(characterMiddleware)
+        .concat(initMiddleware)
 });
 
 export type AppDispatch = typeof store.dispatch;

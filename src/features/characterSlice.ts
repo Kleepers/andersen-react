@@ -2,38 +2,18 @@ import {createSlice, Middleware, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../app/store";
 import {Character, Filters} from "../components/Cards/CardsInterfaces";
 
-let history;
-let email;
-let favorites;
-
-try {
-    email = JSON.parse(localStorage.getItem('user') || '').email;
-} catch {
-    email = '';
-}
-
-try {
-    history = JSON.parse(localStorage.getItem(`${email}history`) || '');
-} catch {
-    history = [];
-}
-
-try {
-    favorites = JSON.parse(localStorage.getItem(`${email}favorites`) || '');
-} catch {
-    favorites = [];
-}
-
 interface CharacterState {
-    characters: Array<Character> | [];
     history: Array<Filters> | [];
     favorites: Array<number> | [];
 }
 
+type InitCharactersPayload = {
+    favorites: Array<number> | [];
+    history: Array<Filters> | [];
+}
 const initialState: CharacterState = {
-    characters: [],
-    history: history,
-    favorites: favorites
+    history: [],
+    favorites: []
 }
 
 export const characterMiddleware: Middleware = (store) => (next) => (action) => {
@@ -70,6 +50,10 @@ export const characterSlice = createSlice({
         },
         clearHistory: (state) => {
             state.history = [];
+        },
+        initCharacters: (state, action: PayloadAction<InitCharactersPayload>) => {
+            state.favorites = action.payload.favorites;
+            state.history = action.payload.history;
         }
     }
 })
@@ -77,6 +61,6 @@ export const characterSlice = createSlice({
 export const selectHistory = (state: RootState) => state.character.history;
 export const selectFavorites = (state: RootState) => state.character.favorites;
 
-export const {setHistory, setFavorites, deleteFavorite, clearHistory} = characterSlice.actions;
+export const {setHistory, setFavorites, deleteFavorite, clearHistory, initCharacters} = characterSlice.actions;
 
 export default characterSlice.reducer;
