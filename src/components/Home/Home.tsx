@@ -5,6 +5,8 @@ import Info from "../Info/Info";
 import Cards from "../Cards/Cards";
 import {Filters} from "../Cards/CardsInterfaces";
 
+import s from './Home.module.css';
+
 const Home = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -28,7 +30,7 @@ const Home = () => {
     }
 
     return (
-        <div>
+        <div className={s.home}>
             <SearchBar filterHandler={handleSetFilters}/>
             <Routes>
                 <Route path='/search' element={<Cards filters={filters}/>}/>

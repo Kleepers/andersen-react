@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 200px auto;
+    justify-items: center;
+    align-items: center;
+    color: wheat;
+    height: 413px;
+}
+
+.text {
+    font-size: 32px;
+    margin-top: 20px;
+}
+
+.text:nth-child(3) {
+    margin-top: 480px;
+    font-size: 16px;
+}
+
+a {
+    color: wheat;
+}
+

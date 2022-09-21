@@ -5,6 +5,14 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import s from './History.module.css';
 import {Filters} from "../Cards/CardsInterfaces";
 
+type HistoryItemType = {
+    name: string;
+    status: string;
+    species: string;
+    type: string;
+    gender: string;
+}
+
 const History = () => {
 
     const dispatch = useAppDispatch();
