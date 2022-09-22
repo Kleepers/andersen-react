@@ -113,7 +113,7 @@ const SearchBar = ({filterHandler}: Props) => {
                 {suggestions.map((item: Suggestion) => {
                     console.log(item);
                     const {name, id, image, gender, status} = item;
-                    return <Suggestion id={id} name={name} image={image} gender={gender} status={status}/>;
+                    return <Suggestion key={id} id={id} name={name} image={image} gender={gender} status={status}/>;
                 })}
             </div>
         </div>
