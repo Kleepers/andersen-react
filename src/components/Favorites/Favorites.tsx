@@ -11,22 +11,20 @@ const Favorites = () => {
 
     const shouldFetch = favorites.length > 0;
 
-    const {data, error} = useGetCharacterByIdQuery(favorites, {
+    const {data} = useGetCharacterByIdQuery(favorites, {
         skip: !shouldFetch
     });
 
     let cardsField;
 
-    if (data === undefined) {
+    if (!data) {
         cardsField = 'No characters'
     } else if (data.length) {
         cardsField = data.map((x: Character): JSX.Element => {
-            console.log(x);
-            const {id, name, image, location, status} = x;
-            return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
+            return <Card key={data.id} data={x}/>;
         });
     } else {
-        cardsField = <Card key={data.id} id={data.id} name={data.name} image={data.image} location={data.location} status={data.status}/>;
+        cardsField = <Card data={data}/>;
     }
 
     return (

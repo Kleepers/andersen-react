@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {authApi} from '../services/authApi';
 import authReducer, {authMiddleware} from '../features/authSlice';
-import characterReducer, {characterMiddleware} from '../features/characterSlice'
+import characterReducer from '../features/characterSlice'
 import {characterApi} from "../services/characterApi";
 import {initMiddleware} from "../middleware/initMiddleware";
+import {characterMiddleware} from "../middleware/characterMiddleware";
 
 export const store = configureStore({
     reducer: {

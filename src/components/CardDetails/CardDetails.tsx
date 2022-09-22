@@ -10,9 +10,10 @@ import s from "./CardDetails.module.css"
 
 const CardDetails = () => {
     let {id} = useParams();
+    const characterId = Number(id);
     let api = `https://rickandmortyapi.com/api/character/${id}`
     const dispatch = useAppDispatch();
-    const favorites: Array<number> = useAppSelector(selectFavorites);
+    const favorites = useAppSelector(selectFavorites);
 
 
     let [fetchedData, updateFetchedData] = useState<Character>({
@@ -40,7 +41,7 @@ const CardDetails = () => {
     let isFavorite: boolean;
 
     if (favorites.length > 0) {
-        isFavorite = favorites.includes(Number(id));
+        isFavorite = favorites.includes(characterId);
     }
 
     useEffect(() => {
@@ -51,9 +52,9 @@ const CardDetails = () => {
 
     function handleFavorites () {
         if (isFavorite) {
-            dispatch(deleteFavorite(Number(id)))
+            dispatch(deleteFavorite(characterId))
         } else {
-            dispatch(setFavorites(Number(id)))
+            dispatch(setFavorites(characterId))
         }
     }
 

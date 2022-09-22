@@ -1,6 +1,6 @@
-import {createSlice, Middleware, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../app/store";
-import {Character, Filters} from "../components/Cards/CardsInterfaces";
+import {Filters} from "../components/Cards/CardsInterfaces";
 
 interface CharacterState {
     history: Array<Filters> | [];
@@ -14,25 +14,6 @@ type InitCharactersPayload = {
 const initialState: CharacterState = {
     history: [],
     favorites: []
-}
-
-export const characterMiddleware: Middleware = (store) => (next) => (action) => {
-    if (action.type === 'character/setHistory') {
-        let newHistory = [...store.getState().character.history, action.payload];
-        localStorage.setItem(`${store.getState().auth.email}history`, JSON.stringify(newHistory));
-    }
-    if (action.type === 'character/setFavorites') {
-        let newFavorites = [...store.getState().character.favorites, action.payload];
-        localStorage.setItem(`${store.getState().auth.email}favorites`, JSON.stringify(newFavorites));
-    }
-    if (action.type === 'character/deleteFavorite') {
-        let newFavorites = store.getState().character.favorites.filter((item : number) => item !== action.payload);
-        localStorage.setItem(`${store.getState().auth.email}favorites`, JSON.stringify(newFavorites));
-    }
-    if (action.type === 'character/clearHistory') {
-        localStorage.removeItem(`${store.getState().auth.email}history`);
-    }
-    next(action);
 }
 
 export const characterSlice = createSlice({
@@ -59,7 +40,8 @@ export const characterSlice = createSlice({
 })
 
 export const selectHistory = (state: RootState) => state.character.history;
-export const selectFavorites = (state: RootState) => state.character.favorites;
+export const selectFavorites = (state: RootState): Array<number> => state.character.favorites;
+export const characterActions = characterSlice.actions;
 
 export const {setHistory, setFavorites, deleteFavorite, clearHistory, initCharacters} = characterSlice.actions;
 

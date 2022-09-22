@@ -7,14 +7,17 @@ import s from "./Cards.module.css";
 
 
 type Props = {
-    id: number,
-    image: string,
-    name: string,
-    location: Location,
-    status: string
+    data: {
+        id: number,
+        image: string,
+        name: string,
+        location: Location,
+        status: string
+    }
 }
 
-const Card = ({ id, image, name, location, status }: Props) => {
+const Card = ({ data }: Props) => {
+    const {id, image, name, location, status} = data;
     return <Link to={`/character/${id}`} className={s.card}>
         <img src={image} alt="character photo"/>
         <div className={s.content}>

@@ -16,10 +16,10 @@ const initialState: AuthState = {
 }
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
-    if (action.type === 'auth/setUser') {
+    if (action.type === authSlice.actions.setUser.type) {
         localStorage.setItem('user', JSON.stringify(action.payload));
     }
-    if (action.type === 'auth/logout') {
+    if (action.type === authSlice.actions.logout.type) {
         localStorage.removeItem('user');
     }
     next(action);
