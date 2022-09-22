@@ -12,8 +12,7 @@ import Home from "./components/Home/Home";
 import History from "./components/History/History";
 import Favorites from "./components/Favorites/Favorites";
 import s from './App.module.css';
-import {ThemeProvider} from "./app/themeContext";
-
+import {FeatureProvider} from './app/FeatureContext';
 
 let initial = true;
 
@@ -31,7 +30,7 @@ function App(): JSX.Element {
     return (
         <div className={s.app}>
             <ErrorBoundary>
-                <ThemeProvider>
+                <FeatureProvider>
                     <Header/>
                     <Routes>
                         <Route path='/signup' element={<SignUp/>}/>
@@ -48,7 +47,7 @@ function App(): JSX.Element {
                         <Route path='*' element={<Home />}/>
                         <Route path='/character/:id' element={<CardDetails/>}/>
                     </Routes>
-                </ThemeProvider>
+                </FeatureProvider>
             </ErrorBoundary>
         </div>
     );
