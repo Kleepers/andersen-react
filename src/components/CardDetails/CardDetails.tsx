@@ -5,9 +5,6 @@ import {deleteFavorite, selectFavorites, setFavorites} from "../../features/char
 import {Character} from "../Cards/CardsInterfaces";
 import s from "./CardDetails.module.css"
 
-
-
-
 const CardDetails = () => {
     let {id} = useParams();
     const characterId = Number(id);
@@ -63,7 +60,6 @@ const CardDetails = () => {
             <div className="">
                 <h1 className={s.name}>{name}</h1>
                 <img src={image} alt=""/>
-
                 <div className={`${s.status} ${s[status.toLowerCase()]}`}>{status}</div>
                 <div className={s.content}>
                     <div className="">
