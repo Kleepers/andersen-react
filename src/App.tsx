@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import {useAppDispatch} from "./app/hooks";
 import SignUp from "./components/SignUp/SignUp";
 import SignIn from "./components/SignIn/SignIn";
 import Header from "./components/Header/Header";
@@ -8,11 +9,21 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import CardDetails from "./components/CardDetails/CardDetails";
 import Home from "./components/Home/Home";
 import History from "./components/History/History";
+import Favorites from "./components/Favorites/Favorites";
 import s from './App.module.css';
 
-
+let initial = true;
 
 function App(): JSX.Element {
+
+    const dispatch = useAppDispatch();
+
+    if (initial) {
+        dispatch({
+            type: 'init/initApp',
+        })
+        initial = false;
+    }
 
     return (
         <div className={s.app}>
@@ -25,6 +36,9 @@ function App(): JSX.Element {
                 </PrivateRoute>}/>
                 <Route path='/history' element={<PrivateRoute>
                     <History/>
+                </PrivateRoute>}/>
+                <Route path='/favorites' element={<PrivateRoute>
+                    <Favorites/>
                 </PrivateRoute>}/>
                 <Route path='*' element={<Home />}/>
                 <Route path='/character/:id' element={<CardDetails/>}/>

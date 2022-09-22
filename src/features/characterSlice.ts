@@ -1,55 +1,48 @@
-import {createSlice, Middleware, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../app/store";
-import {Character} from "../components/Cards/CardsInterfaces";
-
-let history;
-let email;
-
-try {
-    email = JSON.parse(localStorage.getItem('user') || '').email;
-} catch {
-    email = '';
-}
-
-try {
-    history = JSON.parse(localStorage.getItem(`${email}`) || '');
-} catch {
-    history = [];
-}
+import {Filters} from "../components/Cards/CardsInterfaces";
 
 interface CharacterState {
-    characters: Array<Character> | [];
-    history: any;
+    history: Array<Filters> | [];
+    favorites: Array<number> | [];
 }
 
+type InitCharactersPayload = {
+    favorites: Array<number> | [];
+    history: Array<Filters> | [];
+}
 const initialState: CharacterState = {
-    characters: [],
-    history: history
-}
-
-export const characterMiddleware: Middleware = (store) => (next) => (action) => {
-    if (action.type === 'character/setHistory') {
-        let newHistory = [...store.getState().character.history, action.payload];
-        localStorage.setItem(`${store.getState().auth.email}`, JSON.stringify(newHistory));
-    }
-    next(action);
+    history: [],
+    favorites: []
 }
 
 export const characterSlice = createSlice({
     name: 'character',
     initialState,
     reducers: {
-        setCharacters: (state, action: PayloadAction<Array<Character>>) => {
-            state.characters = action.payload
-        },
-        setHistory: (state, action: any) => {
+        setHistory: (state, action: PayloadAction<Filters>) => {
             state.history = [...state.history, action.payload]
+        },
+        setFavorites: (state, action: PayloadAction<number>) => {
+            state.favorites = [...state.favorites, action.payload]
+        },
+        deleteFavorite: (state, action: PayloadAction<number>) => {
+            state.favorites = state.favorites.filter((item) => item !== action.payload);
+        },
+        clearHistory: (state) => {
+            state.history = [];
+        },
+        initCharacters: (state, action: PayloadAction<InitCharactersPayload>) => {
+            state.favorites = action.payload.favorites;
+            state.history = action.payload.history;
         }
     }
 })
 
 export const selectHistory = (state: RootState) => state.character.history;
+export const selectFavorites = (state: RootState): Array<number> => state.character.favorites;
+export const characterActions = characterSlice.actions;
 
-export const {setCharacters, setHistory} = characterSlice.actions;
+export const {setHistory, setFavorites, deleteFavorite, clearHistory, initCharacters} = characterSlice.actions;
 
 export default characterSlice.reducer;

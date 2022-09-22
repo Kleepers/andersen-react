@@ -16,13 +16,18 @@ export const characterApi = createApi({
                 }
             }
         }),
-        getCharacterBySelector: builder.mutation({
-            query: (name) => `/?name=${name}`,
+        getCharacterById: builder.query({
+            query: (idArr) => {
+                const characterUrl = idArr.map((id: number) => `${id}`).join(',');
+                return {
+                    url: `/${characterUrl}`
+                }
+            }
         }),
     }),
 });
 
 export const {
     useGetCharacterQuery,
-    useGetCharacterBySelectorMutation
+    useGetCharacterByIdQuery
 } = characterApi;

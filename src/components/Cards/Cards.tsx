@@ -18,15 +18,14 @@ const Cards = ({filters}: Props): JSX.Element => {
         setPrevFilters(filters);
     }
 
-    const {data, error} = useGetCharacterQuery({page: pageNumber, ...filters});
+    const {data} = useGetCharacterQuery({page: pageNumber, ...filters});
 
     const pagesAmount = Number(data?.info.pages) || 0;
     let cardsField;
 
     if (data) {
         cardsField = data.results.map((x: Character): JSX.Element => {
-            const {id, name, image, location, status} = x;
-            return <Card key={id} id={id} name={name} image={image} location={location} status={status}/>;
+            return <Card key={data.id} data={x}/>;
         });
     } else {
         cardsField = 'No characters'
