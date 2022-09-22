@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom"
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {deleteFavorite, selectFavorites, setFavorites} from "../../features/characterSlice";
 import {Character} from "../Cards/CardsInterfaces";
 import s from "./CardDetails.module.css"
+import {FeatureContext} from "../../app/FeatureContext";
 
 const CardDetails = () => {
     let {id} = useParams();
@@ -11,7 +12,7 @@ const CardDetails = () => {
     let api = `https://rickandmortyapi.com/api/character/${id}`
     const dispatch = useAppDispatch();
     const favorites = useAppSelector(selectFavorites);
-
+    const {isTelegramShareEnabled} = useContext(FeatureContext);
 
     let [fetchedData, updateFetchedData] = useState<Character>({
         id: 0,
@@ -55,6 +56,10 @@ const CardDetails = () => {
         }
     }
 
+    function handleShareTelegram () {
+        window.open(`https://t.me/share/url?url=http://localhost:3000/character/${id}`, '_blank')
+    }
+
     return (
         <div className={s.container}>
             <div className="">
@@ -79,6 +84,7 @@ const CardDetails = () => {
                     </div>
                 </div>
                 <button onClick={handleFavorites} className={s.button}>Like</button>
+                {isTelegramShareEnabled && <button onClick={handleShareTelegram} className={s.button}>Share</button>}
             </div>
         </div>
     );
