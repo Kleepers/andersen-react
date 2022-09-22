@@ -21,6 +21,7 @@
     color: wheat;
     border-radius: 5px;
     text-decoration: none;
+    margin-top: 20px;
 }
 
 .content {
@@ -37,3 +38,12 @@
     padding-top: 10px;
 }
 
+.button {
+    border-radius: 5px;
+    background: wheat;
+    width: 100px;
+    height: 30px;
+    color: rgb(32, 35, 41);
+    font-size: 10px;
+
+}

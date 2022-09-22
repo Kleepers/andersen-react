@@ -9,7 +9,7 @@ type Props = {
     filters: Filters
 }
 
-const CardsContainer = ({filters}: Props): JSX.Element => {
+const Cards = ({filters}: Props): JSX.Element => {
 
     const [prevFilters, setPrevFilters] = useState<Filters>(filters);
     const [pageNumber, setPageNumber] = useState<number>(1);
@@ -25,10 +25,10 @@ const CardsContainer = ({filters}: Props): JSX.Element => {
 
     if (data) {
         cardsField = data.results.map((x: Character): JSX.Element => {
-            return <Card key={x.id} data={x}/>;
+            return <Card key={data.id} data={x}/>;
         });
     } else {
-        cardsField = <span>'No characters'</span>
+        cardsField = <div>No characters</div>
     }
     return (
         <>
@@ -38,4 +38,4 @@ const CardsContainer = ({filters}: Props): JSX.Element => {
     )
 }
 
-export default CardsContainer;
+export default Cards;
