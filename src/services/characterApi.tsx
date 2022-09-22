@@ -1,11 +1,9 @@
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 
 const URL = "https://rickandmortyapi.com/api/character";
 
 export const characterApi = createApi({
-    reducerPath: "api",
+    reducerPath: "characterApi",
     baseQuery: fetchBaseQuery({baseUrl: URL}),
     endpoints: (builder) => ({
         getCharacter: builder.query({
