@@ -28,7 +28,7 @@ const Cards = ({filters}: Props): JSX.Element => {
             return <Card key={data.id} data={x}/>;
         });
     } else {
-        cardsField = 'No characters'
+        cardsField = <div>No characters</div>
     }
     return (
         <>
