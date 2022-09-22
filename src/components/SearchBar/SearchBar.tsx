@@ -85,7 +85,13 @@ const SearchBar = ({filterHandler}: Props) => {
                    type='text'
                    placeholder='Status'
                    className={s.searchBar__input}
+                   list="status-select"
             />
+            <datalist id="status-select">
+                <option value="alive"/>
+                <option value="dead"/>
+                <option value="unknown"/>
+            </datalist>
             <input value={species}
                    onChange={(e) => setFormValue({...formValue, species: e.target.value})}
                    name='species'
@@ -106,7 +112,14 @@ const SearchBar = ({filterHandler}: Props) => {
                    type='text'
                    placeholder='Gender'
                    className={s.searchBar__input}
+                   list="gender-select"
             />
+            <datalist id="gender-select">
+                <option value="male"/>
+                <option value="female"/>
+                <option value="genderless"/>
+                <option value="unknown"/>
+            </datalist>
             <button className={s.searchBar__button} onClick={handleSearch}>Search</button>
         </form>
             <div className={s.suggestions__wrapper}>
