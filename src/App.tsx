@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {useAppDispatch} from "./app/hooks";
-import {ErrorBoundary} from "./components/ErrorBoundary/ErrorBoundary";
-import SignUpContainer from "./components/SignUp/SignUpContainer";
-import SignInContainer from "./components/SignIn/SignInContainer";
+import {ErrorBoundaryContainer} from "./components/ErrorBoundary/ErrorBoundaryContainer";
+import SignUp from "./components/SignUp/SignUp";
+import SignIn from "./components/SignIn/SignIn";
 import Header from "./components/Header/Header";
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
@@ -29,12 +29,12 @@ function App(): JSX.Element {
 
     return (
         <div className={s.app}>
-            <ErrorBoundary>
+            <ErrorBoundaryContainer>
                 <FeatureProvider>
                     <Header/>
                     <Routes>
-                        <Route path='/signup' element={<SignUpContainer/>}/>
-                        <Route path='/signin' element={<SignInContainer/>}/>
+                        <Route path='/signup' element={<SignUp/>}/>
+                        <Route path='/signin' element={<SignIn/>}/>
                         <Route path='/dashboard' element={<PrivateRoute>
                             <DashboardContainer/>
                         </PrivateRoute>}/>
@@ -48,7 +48,7 @@ function App(): JSX.Element {
                         <Route path='/character/:id' element={<CardDetailsContainer/>}/>
                     </Routes>
                 </FeatureProvider>
-            </ErrorBoundary>
+            </ErrorBoundaryContainer>
         </div>
     );
 }

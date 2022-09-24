@@ -26,7 +26,6 @@ const Header = (): JSX.Element => {
                     </>
                 }
             </div>
-
         </header>
     );
 };

@@ -34,6 +34,14 @@
     font-size: 1.5rem;
 }
 
+.name:visited {
+    color: wheat;
+}
+
+.name:link {
+    color: wheat;
+}
+
 .location {
     padding-top: 10px;
 }

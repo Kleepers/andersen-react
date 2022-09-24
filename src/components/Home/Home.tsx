@@ -1,13 +1,13 @@
 import React, {lazy, useState, Suspense} from 'react';
 import SearchBarContainer from "../SearchBar/SearchBarContainer";
 import {Route, Routes, useSearchParams} from "react-router-dom";
-
 import {Filters} from "../Cards/CardsInterfaces";
 
 import s from './Home.module.css';
 
 const Info = lazy(() => import ("../Info/Info"));
-const Cards = lazy(() => import ("../Cards/Cards"));
+const CardsContainer = lazy(() => import ("../Cards/CardsContainer"));
+
 
 const Home = () => {
 
@@ -21,7 +21,7 @@ const Home = () => {
         gender: searchParams.get('gender') || ''
     })
 
-    function handleSetFilters(filters: Filters) {
+    function handleSetFilters (filters: Filters) {
         setFilters({
             name: filters.name,
             status: filters.status,
@@ -36,7 +36,7 @@ const Home = () => {
             <SearchBarContainer filterHandler={handleSetFilters}/>
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
-                    <Route path='/search' element={<Cards filters={filters}/>}/>
+                    <Route path='/search' element={<CardsContainer filters={filters}/>}/>
                     <Route path='/' element={<Info/>}/>
                 </Routes>
             </Suspense>
