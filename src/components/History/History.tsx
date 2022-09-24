@@ -1,25 +1,20 @@
 import React from 'react';
-import {clearHistory, selectHistory} from "../../features/characterSlice";
-import HistoryItem from "../HistoryItem/HistoryItem";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import s from './History.module.css';
 import {Filters} from "../Cards/CardsInterfaces";
+import HistoryItem from "../HistoryItem/HistoryItem";
+import s from "./History.module.css";
 
-const History = () => {
 
-    const dispatch = useAppDispatch();
-    const history = useAppSelector(selectHistory);
+type Props = {
+    history: Array<Filters>,
+    handleClearHistory: () => void,
+}
 
-    function handleClearHistory () {
-        dispatch(clearHistory());
-    }
-
+const History = ({history, handleClearHistory}: Props) => {
     return (
         <div className={s.history}>
             <button type='button' className={s.history__button} onClick={handleClearHistory}>Clear History</button>
             {history.map((item: Filters, index: number) => {
-                const {name, status, species, type, gender} = item;
-                return <HistoryItem key={index} name={name} status={status} species={species} type={type} gender={gender}/>;
+                return <HistoryItem key={index} data={item}/>;
             })}
         </div>
     );

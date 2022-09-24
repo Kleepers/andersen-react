@@ -41,11 +41,15 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-top: 10px;
 }
 
 .text {
     font-size: 16px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
 }
 
 .button {
@@ -56,4 +60,9 @@ img {
     height: 50px;
     color: rgb(32, 35, 41);
     font-size: 16px;
+}
+
+.button_telegram {
+    margin-top: 0;
+    background: #1ea7fd;
 }

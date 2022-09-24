@@ -4,12 +4,13 @@ import {useAppSelector} from "../../app/hooks";
 import {selectAuth} from "../../features/authSlice";
 import s from './Header.module.css';
 
+
 const Header = (): JSX.Element => {
     const {isAuth} = useAppSelector(selectAuth)
 
     return (
         <header className={s.header}>
-            <Link to={'/'} className={s.logo}></Link>
+            <Link to={'/'} className={s.logo}/>
             <div className={s.linkWrapper}>
                 {isAuth
                     ?

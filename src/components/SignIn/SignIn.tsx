@@ -1,49 +1,17 @@
-import React, {useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import {useFormik} from "formik";
-import {useLoginUserMutation} from "../../services/authApi";
-import {useAppDispatch} from "../../app/hooks";
-import {setUser} from "../../features/authSlice";
-import SignInSchema from "./SignInSchema";
-import s from './SignIn.module.css';
+import React from 'react';
+import s from "./SignIn.module.css";
+import {FormikProps} from "formik";
 
-
-type FormValue = {
+interface FormValues {
     email: string;
     password: string;
 }
 
-const initialState = {
-    email: '',
-    password: '',
+type Props = {
+    formik: FormikProps<FormValues>
 }
 
-const SignIn = (): JSX.Element => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const [loginUser, {data, isSuccess, isError, error}] = useLoginUserMutation();
-
-    const formik = useFormik({
-        initialValues: initialState,
-        validationSchema: SignInSchema,
-        onSubmit: (values: FormValue) => {
-            const {email, password} = values;
-            loginUser({email, password}).unwrap()
-                .then(fulfilled => {
-                    alert('Login success')
-                    dispatch(setUser({
-                        name: fulfilled.result.name,
-                        token: fulfilled.token,
-                        email: fulfilled.result.email
-                    }));
-                    navigate('/');
-                })
-                .catch(rejected => {
-                    alert((rejected).data.message);
-                });
-        }
-    })
-
+const SignIn = ({formik}: Props) => {
     return (
         <form onSubmit={formik.handleSubmit} className={s.signin}>
             <h1 className={s.title}>please signin</h1>

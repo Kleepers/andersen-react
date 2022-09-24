@@ -1,5 +1,5 @@
 import React, {lazy, useState, Suspense} from 'react';
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBarContainer from "../SearchBar/SearchBarContainer";
 import {Route, Routes, useSearchParams} from "react-router-dom";
 
 import {Filters} from "../Cards/CardsInterfaces";
@@ -33,7 +33,7 @@ const Home = () => {
 
     return (
         <div className={s.home}>
-            <SearchBar filterHandler={handleSetFilters}/>
+            <SearchBarContainer filterHandler={handleSetFilters}/>
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path='/search' element={<Cards filters={filters}/>}/>

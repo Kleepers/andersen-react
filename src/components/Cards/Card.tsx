@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-
 import {Location} from "./CardsInterfaces";
 import {deleteFavorite, selectFavorites, setFavorites} from "../../features/characterSlice";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";

@@ -4,16 +4,20 @@ import s from './HistoryItem.module.css';
 
 
 type Props = {
-    name: string;
-    status: string;
-    species: string;
-    type: string;
-    gender: string;
+    data: {
+        name: string;
+        status: string;
+        species: string;
+        type: string;
+        gender: string;
+    }
 }
 
-const HistoryItem = ({name, status, type, species, gender}: Props) => {
+const HistoryItem = ({data}: Props) => {
+    const {name, status, type, species, gender} = data;
     return (
-        <Link to={`/search/?page=1&name=${name}&status=${status}&type=${type}&species=${species}&gender=${gender}`} className={s.historyItem}>
+        <Link to={`/search/?page=1&name=${name}&status=${status}&type=${type}&species=${species}&gender=${gender}`}
+              className={s.historyItem}>
             <div className={s.historyItem__parameterWrapper}>
                 <span className={s.historyItem__title}>Name:</span>
                 <span className={s.historyItem__parameter}>{name || 'none'}</span>

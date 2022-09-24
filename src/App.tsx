@@ -2,14 +2,14 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {useAppDispatch} from "./app/hooks";
 import {ErrorBoundary} from "./components/ErrorBoundary/ErrorBoundary";
-import SignUp from "./components/SignUp/SignUp";
-import SignIn from "./components/SignIn/SignIn";
+import SignUpContainer from "./components/SignUp/SignUpContainer";
+import SignInContainer from "./components/SignIn/SignInContainer";
 import Header from "./components/Header/Header";
-import Dashboard from "./components/Dashboard/Dashboard";
+import DashboardContainer from "./components/Dashboard/DashboardContainer";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import CardDetails from "./components/CardDetails/CardDetails";
+import CardDetailsContainer from "./components/CardDetails/CardDetailsContainer";
 import Home from "./components/Home/Home";
-import History from "./components/History/History";
+import HistoryContainer from "./components/History/HistoryContainer";
 import Favorites from "./components/Favorites/Favorites";
 import s from './App.module.css';
 import {FeatureProvider} from './app/FeatureContext';
@@ -33,19 +33,19 @@ function App(): JSX.Element {
                 <FeatureProvider>
                     <Header/>
                     <Routes>
-                        <Route path='/signup' element={<SignUp/>}/>
-                        <Route path='/signin' element={<SignIn/>}/>
+                        <Route path='/signup' element={<SignUpContainer/>}/>
+                        <Route path='/signin' element={<SignInContainer/>}/>
                         <Route path='/dashboard' element={<PrivateRoute>
-                            <Dashboard/>
+                            <DashboardContainer/>
                         </PrivateRoute>}/>
                         <Route path='/history' element={<PrivateRoute>
-                            <History/>
+                            <HistoryContainer/>
                         </PrivateRoute>}/>
                         <Route path='/favorites' element={<PrivateRoute>
                             <Favorites/>
                         </PrivateRoute>}/>
                         <Route path='*' element={<Home />}/>
-                        <Route path='/character/:id' element={<CardDetails/>}/>
+                        <Route path='/character/:id' element={<CardDetailsContainer/>}/>
                     </Routes>
                 </FeatureProvider>
             </ErrorBoundary>

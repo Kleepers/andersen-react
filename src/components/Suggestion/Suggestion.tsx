@@ -5,14 +5,17 @@ import s from './Suggestion.module.css';
 
 
 type Props = {
-    id: string;
-    name: string;
-    gender: string;
-    status: string;
-    image: string;
+    data: {
+        id: string;
+        name: string;
+        gender: string;
+        status: string;
+        image: string;
+    }
 }
 
-const Suggestion = ({id, name, gender, status, image}: Props) => {
+const Suggestion = ({data}: Props) => {
+    const {name, id, image, gender, status} = data;
     return (
         <Link className={s.suggestion} to={`/character/${id}`}>
             <img alt='character-image' className={s.suggestion__image} src={image}/>

@@ -6,6 +6,7 @@ import {Character} from "../Cards/CardsInterfaces";
 import Card from "../Cards/Card";
 import s from "../Cards/Cards.module.css";
 
+
 const Favorites = () => {
     const favorites = useAppSelector(selectFavorites);
 

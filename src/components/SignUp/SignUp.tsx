@@ -1,14 +1,9 @@
-import React, {useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../app/hooks";
-import {useFormik} from "formik";
-import SignUpSchema from "./SignUpSchema";
-import {useRegisterUserMutation} from "../../services/authApi";
-import {setUser} from "../../features/authSlice";
-import s from './SignUp.module.css';
+import React from 'react';
+import s from "./SignUp.module.css";
+import {FormikProps} from "formik";
 
 
-type FormValue = {
+interface FormValues {
     firstName: string;
     lastName: string;
     email: string;
@@ -16,41 +11,11 @@ type FormValue = {
     confirmPassword: string;
 }
 
-const initialState = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+type Props = {
+    formik: FormikProps<FormValues>
 }
 
-const SignUp = (): JSX.Element => {
-
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const [registerUser, {data, isSuccess, isError, error}] = useRegisterUserMutation();
-
-    const formik = useFormik({
-        initialValues: initialState,
-        validationSchema: SignUpSchema,
-        onSubmit: (values: FormValue) => {
-            const {firstName, lastName, email, password} = values;
-            registerUser({firstName, lastName, email, password}).unwrap()
-                .then(fulfilled => {
-                    dispatch(setUser({
-                        name: fulfilled.result.name,
-                        token: fulfilled.token,
-                        email: fulfilled.result.email
-                    }));
-                    alert('Registration successful');
-                    navigate('/');
-                }).catch(rejected => {
-                alert((rejected).data.message);
-            });
-        }
-
-    })
-
+const SignUp = ({formik}: Props) => {
     return (
         <form onSubmit={formik.handleSubmit} className={s.signup}>
             <h1 className={s.title}>please signup</h1>
@@ -62,7 +27,8 @@ const SignUp = (): JSX.Element => {
                 onBlur={formik.handleBlur}
                 placeholder='First Name'
             />
-            {formik.touched.firstName && formik.errors.firstName && <div className={s.error}>{formik.errors.firstName}</div>}
+            {formik.touched.firstName && formik.errors.firstName &&
+            <div className={s.error}>{formik.errors.firstName}</div>}
             <input
                 type='text'
                 name={'lastName'}
@@ -71,7 +37,8 @@ const SignUp = (): JSX.Element => {
                 onBlur={formik.handleBlur}
                 placeholder='Last Name'
             />
-            {formik.touched.lastName && formik.errors.lastName && <div className={s.error}>{formik.errors.lastName}</div>}
+            {formik.touched.lastName && formik.errors.lastName &&
+            <div className={s.error}>{formik.errors.lastName}</div>}
             <input
                 type='email'
                 name={'email'}
@@ -89,7 +56,8 @@ const SignUp = (): JSX.Element => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
             />
-            {formik.touched.password && formik.errors.password && <div className={s.error}>{formik.errors.password}</div>}
+            {formik.touched.password && formik.errors.password &&
+            <div className={s.error}>{formik.errors.password}</div>}
             <input
                 type='password'
                 name={'confirmPassword'}
@@ -98,11 +66,11 @@ const SignUp = (): JSX.Element => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
             />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword && <div className={s.error}>{formik.errors.confirmPassword}</div>}
+            {formik.touched.confirmPassword && formik.errors.confirmPassword &&
+            <div className={s.error}>{formik.errors.confirmPassword}</div>}
             <button disabled={!formik.isValid && !formik.dirty} type="submit">Sign Up</button>
         </form>
     );
-
 };
 
 export default SignUp;
