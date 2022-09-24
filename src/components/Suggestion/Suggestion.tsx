@@ -6,7 +6,7 @@ import s from './Suggestion.module.css';
 
 type Props = {
     data: {
-        id: string;
+        id: number;
         name: string;
         gender: string;
         status: string;

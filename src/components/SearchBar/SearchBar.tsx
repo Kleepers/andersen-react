@@ -2,13 +2,14 @@ import React from 'react';
 import {FormState} from "./SearchBarContainer";
 import Suggestion from "../Suggestion/Suggestion";
 import s from "./SearchBar.module.css";
+import {Character} from "../Cards/CardsInterfaces";
 
 
 type Props = {
     formValue: FormState,
     setFormValue: (formValue: FormState) => void,
     handleSearch: (e: React.FormEvent) => void,
-    suggestions: any
+    suggestions: Array<Character>
 }
 
 const SearchBar = ({formValue, setFormValue, handleSearch, suggestions}: Props) => {
@@ -68,7 +69,7 @@ const SearchBar = ({formValue, setFormValue, handleSearch, suggestions}: Props) 
                 <button className={s.searchBar__button} onClick={handleSearch}>Search</button>
             </form>
             <div className={s.suggestions__wrapper}>
-                {suggestions.map((item: any) => {
+                {suggestions.map((item: Character) => {
                     return <Suggestion key={item.id} data={item}/>;
                 })}
             </div>

@@ -4,6 +4,7 @@ import {setHistory} from "../../features/characterSlice";
 import {useAppDispatch} from "../../app/hooks";
 import useDebounce from "../../hooks/useDebounce";
 import SearchBar from "./SearchBar";
+import {Character} from "../Cards/CardsInterfaces";
 
 interface Props {
     filterHandler: (formValue: FormState) => void;
@@ -15,14 +16,6 @@ export interface FormState {
     species: string;
     type: string;
     gender: string;
-}
-
-export interface Suggestion {
-    id: string;
-    name: string;
-    image: string;
-    gender: string;
-    status: string;
 }
 
 const SearchBarContainer = ({filterHandler}: Props) => {
@@ -39,7 +32,7 @@ const SearchBarContainer = ({filterHandler}: Props) => {
         type: searchParams.get('type') || '',
         gender: searchParams.get('gender') || ''
     });
-    const [suggestions, setSuggestions] = useState([]);
+    const [suggestions, setSuggestions] = useState<Array<Character>>([]);
     const debouncedValue = useDebounce<FormState>(formValue, 1000)
     const { name, status, species, type, gender } = formValue;
 
