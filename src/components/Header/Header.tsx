@@ -9,7 +9,7 @@ const Header = (): JSX.Element => {
 
     return (
         <header className={s.header}>
-            <Link to={'/'} className={s.logo}></Link>
+            <Link to={'/'} className={s.logo}/>
             <div className={s.linkWrapper}>
                 {isAuth
                     ?
@@ -25,7 +25,6 @@ const Header = (): JSX.Element => {
                     </>
                 }
             </div>
-
         </header>
     );
 };

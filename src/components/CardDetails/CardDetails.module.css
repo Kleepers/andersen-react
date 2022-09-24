@@ -41,7 +41,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-top: 10px;
+    padding-top: 0;
 }
 
 .text {
@@ -49,11 +49,15 @@ img {
 }
 
 .button {
-    margin: 10px auto;
+    margin: 5px auto;
     border-radius: 5px;
     background: wheat;
     width: 400px;
     height: 50px;
     color: rgb(32, 35, 41);
     font-size: 16px;
+}
+
+.button_telegram{
+    background: #1ea7fd;
 }
