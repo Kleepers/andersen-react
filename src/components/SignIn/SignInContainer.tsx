@@ -6,6 +6,7 @@ import {useAppDispatch} from "../../app/hooks";
 import {setUser} from "../../features/authSlice";
 import SignInSchema from "./SignInSchema";
 import SignIn from "./SignIn";
+import Loader from "../Loader/Loader";
 
 
 type FormValue = {
@@ -21,7 +22,7 @@ const initialState = {
 const SignInContainer = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [loginUser] = useLoginUserMutation();
+    const [loginUser, {isLoading}] = useLoginUserMutation();
 
     const formik = useFormik({
         initialValues: initialState,
@@ -30,7 +31,6 @@ const SignInContainer = (): JSX.Element => {
             const {email, password} = values;
             loginUser({email, password}).unwrap()
                 .then(fulfilled => {
-                    alert('Login success')
                     dispatch(setUser({
                         name: fulfilled.result.name,
                         token: fulfilled.token,
@@ -43,6 +43,10 @@ const SignInContainer = (): JSX.Element => {
                 });
         }
     })
+
+    if (isLoading) {
+        return <Loader/>
+    }
 
     return (
         <SignIn formik={formik}/>

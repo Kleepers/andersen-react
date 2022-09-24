@@ -6,6 +6,7 @@ import SignUpSchema from "./SignUpSchema";
 import {useRegisterUserMutation} from "../../services/authApi";
 import {setUser} from "../../features/authSlice";
 import SignUp from "./SignUp";
+import Loader from "../Loader/Loader";
 
 
 type FormValue = {
@@ -28,7 +29,7 @@ const SignUpContainer = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const [registerUser] = useRegisterUserMutation();
+    const [registerUser, {isLoading}] = useRegisterUserMutation();
 
     const formik = useFormik({
         initialValues: initialState,
@@ -42,7 +43,6 @@ const SignUpContainer = (): JSX.Element => {
                         token: fulfilled.token,
                         email: fulfilled.result.email
                     }));
-                    alert('Registration successful');
                     navigate('/');
                 }).catch(rejected => {
                 alert((rejected).data.message);
@@ -50,6 +50,10 @@ const SignUpContainer = (): JSX.Element => {
         }
 
     })
+
+    if(isLoading){
+        return <Loader/>
+    }
 
     return (
         <SignUp formik={formik}/>
