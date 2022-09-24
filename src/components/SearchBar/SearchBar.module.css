@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     align-self: flex-start;
+    margin: 10px auto;
 }
 
 .searchBar__button {

@@ -5,7 +5,7 @@
     justify-items: center;
     align-items: center;
     color: wheat;
-    height: 413px;
+    height: 313px;
 }
 
 .text {
@@ -14,7 +14,7 @@
 }
 
 .text:nth-child(3) {
-    margin-top: 480px;
+    margin-top: 200px;
     font-size: 16px;
 }
 

@@ -37,9 +37,13 @@ const CardDetails = () => {
 
     let {name, image, origin, location, gender, species, status, type} = fetchedData;
     let isFavorite: boolean;
+    let addOrDelete = "Add to Favorites";
 
     if (favorites.length > 0) {
         isFavorite = favorites.includes(characterId);
+        if(isFavorite){
+            addOrDelete = "Delete from Favorites";
+        }
     }
 
     useEffect(() => {
@@ -66,6 +70,7 @@ const CardDetails = () => {
                 <h1 className={s.name}>{name}</h1>
                 <img src={image} alt=""/>
                 <div className={`${s.status} ${s[status.toLowerCase()]}`}>{status}</div>
+                <button onClick={handleFavorites} className={s.button}>{addOrDelete}</button>
                 <div className={s.content}>
                     <div className="">
                         <span className={s.text}>Gender: {gender}</span>
@@ -83,8 +88,8 @@ const CardDetails = () => {
                         <span className={s.text}>Type: {type || "Humanoid"}</span>
                     </div>
                 </div>
-                <button onClick={handleFavorites} className={s.button}>Like</button>
-                {isTelegramShareEnabled && <button onClick={handleShareTelegram} className={s.button}>Share</button>}
+                 <button onClick={handleFavorites} className={s.button}>Like</button>
+                 {isTelegramShareEnabled && <button onClick={handleShareTelegram} className={s.button}>Share</button>}
             </div>
         </div>
     );

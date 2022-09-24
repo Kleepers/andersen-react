@@ -1,5 +1,6 @@
 import {createSlice, Middleware, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../app/store';
+import {initCharacters} from "./characterSlice";
 
 export interface AuthState {
     name: string | null;
@@ -12,15 +13,17 @@ const initialState: AuthState = {
     name: null,
     token: null,
     isAuth: false,
-    email: null
+    email: null,
 }
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
     if (action.type === authSlice.actions.setUser.type) {
         localStorage.setItem('user', JSON.stringify(action.payload));
+        store.dispatch({type: 'init/initApp'});
     }
     if (action.type === authSlice.actions.logout.type) {
         localStorage.removeItem('user');
+        store.dispatch(initCharacters({favorites: [], history: []}));
     }
     next(action);
 }
