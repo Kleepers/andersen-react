@@ -13,6 +13,7 @@ const CardDetailsContainer = () => {
     const dispatch = useAppDispatch();
     const favorites = useAppSelector(selectFavorites);
     const {isTelegramShareEnabled} = useContext(FeatureContext);
+    let addOrDelete = "Add to Favorites";
 
 
     let [fetchedData, updateFetchedData] = useState<Character>({
@@ -40,6 +41,9 @@ const CardDetailsContainer = () => {
 
     if (favorites.length > 0) {
         isFavorite = favorites.includes(characterId);
+        if (isFavorite){
+            addOrDelete = "Delete from Favorites";
+        }
     }
 
     useEffect(() => {
@@ -61,7 +65,7 @@ const CardDetailsContainer = () => {
     }
 
     return (
-        <CardDetails fetchedData={fetchedData} handleFavorites={handleFavorites} handleShareTelegram={handleShareTelegram} isTelegramShareEnabled={isTelegramShareEnabled}/>
+        <CardDetails fetchedData={fetchedData} handleFavorites={handleFavorites} handleShareTelegram={handleShareTelegram} isTelegramShareEnabled={isTelegramShareEnabled} addOrDelete={addOrDelete}/>
     );
 }
 

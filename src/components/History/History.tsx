@@ -1,7 +1,7 @@
 import React from 'react';
-import s from "./History.module.css";
 import {Filters} from "../Cards/CardsInterfaces";
 import HistoryItem from "../HistoryItem/HistoryItem";
+import s from "./History.module.css";
 
 
 type Props = {

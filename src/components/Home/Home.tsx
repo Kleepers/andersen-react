@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {lazy, useState, Suspense} from 'react';
 import SearchBar from "../SearchBar/SearchBar";
 import {Route, Routes, useSearchParams} from "react-router-dom";
-import Info from "../Info/Info";
-import CardsContainer from "../Cards/CardsContainer";
 import {Filters} from "../Cards/CardsInterfaces";
 
 import s from './Home.module.css';
+
+const Info = lazy(() => import ("../Info/Info"));
+const CardsContainer = lazy(() => import ("../Cards/CardsContainer"));
+
 
 const Home = () => {
 
@@ -32,10 +34,12 @@ const Home = () => {
     return (
         <div className={s.home}>
             <SearchBar filterHandler={handleSetFilters}/>
-            <Routes>
-                <Route path='/search' element={<CardsContainer filters={filters}/>}/>
-                <Route path='/' element={<Info />}/>
-            </Routes>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                    <Route path='/search' element={<CardsContainer filters={filters}/>}/>
+                    <Route path='/' element={<Info/>}/>
+                </Routes>
+            </Suspense>
         </div>
     );
 };

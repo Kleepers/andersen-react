@@ -1,67 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom"
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {deleteFavorite, selectFavorites, setFavorites} from "../../features/characterSlice";
-import {Character} from "../Cards/CardsInterfaces";
+import React from "react";
 import s from "./CardDetails.module.css"
+import {Character} from "../Cards/CardsInterfaces";
 
 
+type Props = {
+    fetchedData: Character,
+    handleFavorites: () => void,
+    handleShareTelegram: () => void,
+    isTelegramShareEnabled: boolean,
+    addOrDelete: string,
+}
 
-
-const CardDetails = () => {
-    let {id} = useParams();
-    const characterId = Number(id);
-    let api = `https://rickandmortyapi.com/api/character/${id}`
-    const dispatch = useAppDispatch();
-    const favorites = useAppSelector(selectFavorites);
-
-
-    let [fetchedData, updateFetchedData] = useState<Character>({
-        id: 0,
-        name: '',
-        status: '',
-        species: '',
-        type: '',
-        gender: '',
-        location: {
-            name: '',
-            url: ''
-        },
-        image: '',
-        episode: [],
-        url: '',
-        created: '',
-        origin: {
-            name: '',
-            url: ''
-        }
-    });
-
-    let {name, image, origin, location, gender, species, status, type} = fetchedData;
-    let isFavorite: boolean;
-    let addOrDelete = "Add to Favorites";
-
-    if (favorites.length > 0) {
-        isFavorite = favorites.includes(characterId);
-        if(isFavorite){
-            addOrDelete = "Delete from Favorites";
-        }
-    }
-
-    useEffect(() => {
-        fetch(api)
-            .then(response => response.json())
-            .then(data => updateFetchedData(data))
-    }, [api]);
-
-    function handleFavorites () {
-        if (isFavorite) {
-            dispatch(deleteFavorite(characterId))
-        } else {
-            dispatch(setFavorites(characterId))
-        }
-    }
-
+const CardDetails = ({fetchedData, handleFavorites, handleShareTelegram, isTelegramShareEnabled, addOrDelete}: Props) => {
+    const {name, image, status, type, origin, location, gender, species} = fetchedData;
 
     return (
         <div className={s.container}>
@@ -72,6 +23,7 @@ const CardDetails = () => {
                 <div className={`${s.status} ${s[status.toLowerCase()]}`}>{status}</div>
                 <button onClick={handleFavorites} className={s.button}>{addOrDelete}</button>
                 <div className={s.content}>
+                    {isTelegramShareEnabled && <button onClick={handleShareTelegram} className={`${s.button} ${s.button_telegram}`}>Share via Telegram</button>}
                     <div className="">
                         <span className={s.text}>Gender: {gender}</span>
                     </div>
@@ -88,6 +40,7 @@ const CardDetails = () => {
                         <span className={s.text}>Type: {type || "Humanoid"}</span>
                     </div>
                 </div>
+
             </div>
         </div>
     );
