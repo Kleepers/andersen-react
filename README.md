@@ -1,46 +1,76 @@
-# Getting Started with Create React App
+# Rick and Morty
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+Учебный проект в рамках React-интенсива компании Andersen
 
-## Available Scripts
+## Выполнили:
 
-In the project directory, you can run:
+- Владислав Хакимов https://github.com/Kleepers
 
-### `npm start`
+- Эльдар Сайдашев https://github.com/cybervasyan
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Требования к функциональности
 
-### `npm test`
+**React**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - Пишем функциональные компоненты c хуками в приоритете над классовыми: [components](https://github.com/Kleepers/andersen-react/tree/main/src/components)
+  - Есть четкое разделение на умные и глупые компоненты: [DashboardContainer](https://github.com/Kleepers/andersen-react/blob/main/src/components/Dashboard/DashboardContainer.tsx) [Dashboard](https://github.com/Kleepers/andersen-react/blob/main/src/components/Dashboard/Dashboard.tsx)
+  - Есть рендеринг списков: [SearchBar](https://github.com/Kleepers/andersen-react/blob/main/src/components/SearchBar/SearchBar.tsx), [CardsContainer](https://github.com/Kleepers/andersen-react/blob/main/src/components/Cards/CardsContainer.tsx)
+  - Реализована хотя бы одна форма: [SignIn](https://github.com/Kleepers/andersen-react/blob/main/src/components/SignIn/SignIn.tsx), [SearchBar](https://github.com/Kleepers/andersen-react/blob/main/src/components/SearchBar/SearchBar.tsx)
+  - Есть применение Контекст API: [FeatureContext](https://github.com/Kleepers/andersen-react/blob/main/src/app/FeatureContext.tsx)
+  - Есть применение предохранителя: [ErrorBoundaryContainer](https://github.com/Kleepers/andersen-react/blob/main/src/components/ErrorBoundary/ErrorBoundaryContainer.tsx)
+  - Есть хотя бы один кастомный хук: [useDebounce](https://github.com/Kleepers/andersen-react/blob/main/src/hooks/useDebounce.ts)
+  - Хотя бы несколько компонентов используют PropTypes: [Card](https://github.com/Kleepers/andersen-react/blob/main/src/components/Cards/Card.tsx), [Suggestion](https://github.com/Kleepers/andersen-react/blob/main/src/components/Suggestion/Suggestion.tsx)
+  - Поиск не должен триггерить много запросов к серверу: реализовано с помощью кастомного хука useDebounce [SearchbarContainer](https://github.com/Kleepers/andersen-react/blob/main/src/components/SearchBar/SearchBarContainer.tsx)
+  - Есть применение lazy + Suspense: [Home](https://github.com/Kleepers/andersen-react/blob/main/src/components/Home/Home.tsx)
 
-### `npm run build`
+**Redux**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - Используем Modern Redux with Redux Toolkit: [store](https://github.com/Kleepers/andersen-react/blob/main/src/app/store.ts)
+  - Используем слайсы: [characterSlice](https://github.com/Kleepers/andersen-react/blob/main/src/features/characterSlice.ts), [authSlice](https://github.com/Kleepers/andersen-react/blob/main/src/features/authSlice.ts)
+  - Есть хотя бы одна кастомная мидлвара: [characterMiddleware](https://github.com/Kleepers/andersen-react/blob/main/src/middleware/characterMiddleware.ts), [initMiddleware](https://github.com/Kleepers/andersen-react/blob/main/src/middleware/initMiddleware.ts)
+  - Используется RTK Query: [characterApi](https://github.com/Kleepers/andersen-react/blob/main/src/services/characterApi.tsx), [authApi](https://github.com/Kleepers/andersen-react/blob/main/src/services/authApi.ts)
+  - Используется Transforming Responses: [characterApi](https://github.com/Kleepers/andersen-react/blob/main/src/services/characterApi.tsx)
+  
+**Второй уровень (необязательный)**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - TypeScript
+  - Feature Flags [CardDetails](https://github.com/Kleepers/andersen-react/blob/main/src/components/CardDetails/CardDetails.tsx), [server](https://github.com/Kleepers/andersen-react/tree/main/server)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Зоны ответственности
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Хакимов Владислав
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Фичи | Требования
+| ------------- |:-------------:|
+| История | Разделение на умные и глупые компоненты
+| Избранное (получение данных, работа со стором) | Рендеринг списков
+| Компонент Header | Форма
+| Компонент  SearchBar | Context API
+| Страница персонажа (получение данных, работа со стором) | Предохранитель
+| useDebounce | Кастомный хук
+| Регистрация и вход | debounce input
+| Логика добавления в избранное | Redux Toolkit
+| Поиск персонажей  | Кастомные мидлвары
+| SignIn, SignUp (логика) | RTK Query
+|   | Transforming responce
+|   | TypeScript
+|   | Feature Flag
+|   | Слайсы
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Эльдар Сайдашев
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| Фичи | Требования
+| ------------- |:-------------:|
+| Избранное (стили и логика кнопок) | Разделение на умные и глупые компоненты
+| Компоненты Cards, Card | Рендеринг списков
+| Компоненты Pagination | Форма
+| Рефакторинг SignIn, SignUp + валидация полей | PropTypes
+| Валидация полей | lazy + Suspense
+| Страница персонажа (стили и логика кнопок) | PropTypes
+| Стили | Redux Toolkit
+|  | Слайсы 
+|   | RTK Query
+|   | TypeScript
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
