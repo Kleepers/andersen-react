@@ -18,7 +18,7 @@ const Favorites = () => {
     let cardsField;
 
     if (!data) {
-        cardsField = 'No characters'
+        cardsField = <span>'No characters'</span>
     } else if (data.length) {
         cardsField = data.map((x: Character): JSX.Element => {
             return <Card key={data.id} data={x}/>;
