@@ -13,7 +13,7 @@ export const initMiddleware: Middleware = (store) => (next) => (action) => {
                 store.dispatch(initCharacters({favorites, history}))
             }
         } catch {
-            console.log('no user found in local storage')
+            console.log('no current user found in local storage')
         }
     }
     next(action);
