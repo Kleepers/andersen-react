@@ -5,6 +5,7 @@ import {useGetCharacterByIdQuery} from "../../services/characterApi";
 import {Character} from "../Cards/CardsInterfaces";
 import Card from "../Cards/Card";
 import s from "../Cards/Cards.module.css";
+import Loader from "../Loader/Loader";
 
 
 const Favorites = () => {
@@ -14,7 +15,7 @@ const Favorites = () => {
     let dataOur: any;
     let cardsField;
 
-    const {data} = useGetCharacterByIdQuery(favorites, {
+    const {data, isLoading} = useGetCharacterByIdQuery(favorites, {
         skip: !shouldFetch
     });
 
@@ -24,10 +25,14 @@ const Favorites = () => {
         cardsField = <div>No characters</div>
     } else if (dataOur.length) {
         cardsField = dataOur.map((x: Character): JSX.Element => {
-            return <Card key={dataOur.id} data={x}/>;
+            return <Card key={x.id} data={x}/>;
         });
     } else {
         cardsField = <Card data={dataOur}/>;
+    }
+
+    if (isLoading) {
+        return <Loader/>
     }
 
     return (

@@ -19,7 +19,20 @@ const initialState: AuthState = {
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
     if (action.type === authSlice.actions.setUser.type) {
         localStorage.setItem('user', JSON.stringify(action.payload));
-        store.dispatch({type: 'init/initApp'});
+        try {
+            let favorites;
+            let history;
+            if (localStorage.getItem(`${action.payload.email}favorites`)) {
+                favorites = JSON.parse(localStorage.getItem(`${action.payload.email}favorites`) || '');
+            }
+            if (localStorage.getItem(`${action.payload.email}history`)) {
+                history = JSON.parse(localStorage.getItem(`${action.payload.email}history`) || '');
+            }
+            store.dispatch(initCharacters({favorites, history}))
+        }
+        catch {
+            console.log('error with getting data from LC')
+        }
     }
     if (action.type === authSlice.actions.logout.type) {
         localStorage.removeItem('user');

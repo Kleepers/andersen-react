@@ -8,12 +8,18 @@ export const initMiddleware: Middleware = (store) => (next) => (action) => {
             const user = JSON.parse(localStorage.getItem('user') || '');
             if (user.email) {
                 store.dispatch(setUser(user))
-                const favorites = JSON.parse(localStorage.getItem(`${user.email}favorites`) || '');
-                const history = JSON.parse(localStorage.getItem(`${user.email}history`) || '');
+                let favorites = [];
+                let history = [];
+                if (localStorage.getItem(`${user.email}favorites`)) {
+                    favorites = JSON.parse(localStorage.getItem(`${user.email}favorites`) || '');
+                }
+                if (localStorage.getItem(`${user.email}history`)) {
+                    history = JSON.parse(localStorage.getItem(`${user.email}history`) || '');
+                }
                 store.dispatch(initCharacters({favorites, history}))
             }
         } catch {
-            console.log('no current user found in local storage')
+            console.log('error with getting data from LC')
         }
     }
     next(action);

@@ -4,6 +4,7 @@ import {Character, Filters} from "./CardsInterfaces";
 import Pagination from "../Pagination/Pagination";
 import {useGetCharacterQuery} from "../../services/characterApi";
 import s from "./Cards.module.css"
+import Loader from "../Loader/Loader";
 
 type Props = {
     filters: Filters
@@ -18,18 +19,23 @@ const Cards = ({filters}: Props): JSX.Element => {
         setPrevFilters(filters);
     }
 
-    const {data} = useGetCharacterQuery({page: pageNumber, ...filters});
+    const {data, isFetching} = useGetCharacterQuery({page: pageNumber, ...filters});
 
     const pagesAmount = Number(data?.info.pages) || 0;
     let cardsField;
 
     if (data) {
         cardsField = data.results.map((x: Character): JSX.Element => {
-            return <Card key={data.id} data={x}/>;
+            return <Card key={x.id} data={x}/>;
         });
     } else {
         cardsField = <div>No characters</div>
     }
+
+    if(isFetching) {
+        return <Loader/>
+    }
+
     return (
         <>
             <div className={s.container}>{cardsField}</div>

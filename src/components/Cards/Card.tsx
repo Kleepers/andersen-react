@@ -59,17 +59,16 @@ const Card = ({data}: Props) => {
 }
 
 Card.propTypes = {
-    data: {
+    data: PropTypes.shape({
         id: PropTypes.number,
         image: PropTypes.string,
         name: PropTypes.string,
-        location: {
+        location: PropTypes.shape({
             name: PropTypes.string,
             url: PropTypes.string
-        },
+        }),
         status: PropTypes.string,
-
-    }
+    })
 }
 
 export default Card;
