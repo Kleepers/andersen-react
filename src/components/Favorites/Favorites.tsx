@@ -4,8 +4,9 @@ import {selectFavorites} from "../../features/characterSlice";
 import {useGetCharacterByIdQuery} from "../../services/characterApi";
 import {Character} from "../Cards/CardsInterfaces";
 import Card from "../Cards/Card";
-import s from "../Cards/Cards.module.css";
 import Loader from "../Loader/Loader";
+import s from "../Cards/Cards.module.css";
+
 
 
 const Favorites = () => {

@@ -3,8 +3,8 @@ import Card from "./Card"
 import {Character, Filters} from "./CardsInterfaces";
 import Pagination from "../Pagination/Pagination";
 import {useGetCharacterQuery} from "../../services/characterApi";
-import s from "./Cards.module.css"
 import Loader from "../Loader/Loader";
+import s from "./Cards.module.css"
 
 type Props = {
     filters: Filters

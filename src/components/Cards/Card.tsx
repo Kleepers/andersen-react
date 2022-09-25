@@ -7,8 +7,6 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 import s from "./Cards.module.css";
 
-
-
 type Props = {
     data: {
         id: number,
@@ -18,7 +16,6 @@ type Props = {
         status: string
     }
 }
-
 
 const Card = ({data}: Props) => {
     const dispatch = useAppDispatch();
